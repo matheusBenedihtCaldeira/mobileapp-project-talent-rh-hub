@@ -1,10 +1,11 @@
 import express from "express";
-import userRoutes from "./routes/userRoutes.js";
+import roleRoutes from "./routes/roleRoutes/roleRoutes.js";
 
 const app = express();
 
 app.use(express.json())
-app.use('/api/users', userRoutes)
 
+// Role routes
+app.use('/api/roles', roleRoutes)
 
 export default app
