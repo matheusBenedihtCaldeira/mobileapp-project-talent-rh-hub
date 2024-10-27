@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
       borderWidth: 1,
       width: "100%",
       paddingHorizontal: 10,
-      borderRadius: 5,
+      borderRadius: 7,
       marginBottom: 15,
       backgroundColor: "white",
   
@@ -49,5 +49,16 @@ export const styles = StyleSheet.create({
       color: "white",
       fontSize: 18,
       fontWeight: "bold",
+    },
+
+    title:{
+      fontSize: 25,
+      marginBottom: 5,
+      marginTop: 20,
+      fontWeight: "300",
+      alignSelf: "center",
+      fontWeight: "bold",
+      color: "#2C3E50",
+
     }
   });

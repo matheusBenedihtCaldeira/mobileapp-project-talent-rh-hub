@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, TextInput, Text, TouchableOpacity } from "react-native";
+import { View, TextInput, Text, TouchableOpacity, ScrollView } from "react-native";
 import { styles } from "./styles";
 import Header from "../../components/Header";
 
@@ -9,17 +9,43 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [error, setError] = useState(false);
+
+  const handleSingUp = () => {
+    if(password === "" || confirmPassword ==="" || name==="" || email==="" || cpf===""){
+      alert("Preencha todos os campos");
+      
+    
+    }else if(cpf.length != 11){
+      alert("CPF inválido");
+
+    }else if(password != confirmPassword){
+        alert("Senhas não conferem");
+      
+    } else if (!email.includes("@")) {
+      alert("Email invalido")
+  }else{
+    //colocar aqui para mudarde tela
+  
+  }
+
+}
+
 
   return (
 
     <View style={styles.container}>
     <Header />
+    <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.formContainer}>
+       
       <Text style={styles.text}>Nome Completo:</Text>
       <TextInput
         value={name}
         onChangeText={(name) => setName(name)}
         style={styles.input}
+        autoCapitalize="words"
       />
 
       <Text style={styles.text}>E-mail:</Text>
@@ -28,7 +54,17 @@ export default function SignUp() {
         onChangeText={(email) => setEmail(email)}
         style={styles.input}
          keyboardType="email-address"
-         mode={'outlined'}
+        
+
+      />
+
+      <Text style={styles.text}>CPF:</Text>
+      <TextInput
+        value={cpf}
+        onChangeText={(cpf) => setCpf(cpf)}
+        style={styles.input}
+         keyboardType="numeric"
+         
 
       />
 
@@ -51,10 +87,14 @@ export default function SignUp() {
       />
 
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity 
+      style={styles.button}
+      onPress={handleSingUp}
+      >
         <Text style={styles.buttonText}>Cadastrar</Text>
       </TouchableOpacity>
       </View>
+      </ScrollView>
     </View>
 
   );
