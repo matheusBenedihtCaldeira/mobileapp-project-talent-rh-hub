@@ -1,5 +1,7 @@
 import db_conn from "../../config/db_conn.js";
 
+import bcrypt from'bcrypt';
+
 export const selectUsers = async () => {
     const query = 'SELECT * FROM tb_users;'; 
     const result = await db_conn.query(query);
@@ -7,7 +9,7 @@ export const selectUsers = async () => {
 }
 
 export const insertUser = async (data) => {
-    // Verifica se a role já existe um user
+    // Verifica se já existe um user
     const checkQuery = 'SELECT id FROM tb_users WHERE email = $1;';
     const checkResult = await db_conn.query(checkQuery, [data.email]);
 
@@ -15,9 +17,13 @@ export const insertUser = async (data) => {
         throw new Error('User already exists');
     }
 
+    //Adiciona tratativas hash nas senhas
+    const salt = await bcrypt.genSalt(12)
+    const passwordHash = await bcrypt.hash(data.password, salt);
+    
     // Insere um novo user
     const insertQuery = 'INSERT INTO tb_users (email, password, role_id) VALUES ($1, $2, $3) RETURNING id;';
-    const insertResult = await db_conn.query(insertQuery, [data.email, data.password, data.role_id]);
+    const insertResult = await db_conn.query(insertQuery, [data.email, passwordHash, data.role_id]);
 
     return insertResult.rows[0].id;
 }
