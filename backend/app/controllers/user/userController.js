@@ -4,7 +4,7 @@ import {
   insertUser,
   updateUserById,
   deleteById
-} from "../../models/user/userModels.js";
+} from "../../models/user/UserModels.js";
 
 //Controller responsavel por listar todas os users da base de dados
 export const index = async (req, res) => {
