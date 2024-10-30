@@ -1,16 +1,19 @@
 import express from "express";
 
-import roleRoutes from "./routes/roleRoutes/roleRoutes.js";
-import userRoutes from "./routes/userRoutes/userRoutes.js";
+import RoleRoutes from "./routes/roleRoutes/roleRoutes.js";
+import UserRoutes from "./routes/userRoutes/userRoutes.js";
+import TokenRoutes from "./routes/tokenRoutes/TokenRoutes.js";
 
 const app = express();
 
 app.use(express.json())
 
 //Role routes
-app.use('/api/roles', roleRoutes)
+app.use('/api/roles', RoleRoutes)
 
 //User routes
-app.use('/api/users', userRoutes)
+app.use('/api/users', UserRoutes)
+
+app.use('/api/token', TokenRoutes)
 
 export default app

@@ -28,6 +28,16 @@ export const insertUser = async (data) => {
     return insertResult.rows[0].id;
 }
 
+export const getUserByEmail = async(email) => {
+    const query = 'SELECT * FROM tb_users WHERE email = $1;'
+    const values = [email]
+    const res = await db_conn.query(query, values)
+    if (res.rowCount === 0) {
+        throw new Error('User not found'); 
+    }
+    return res.rows[0];
+}
+
 export const selectUserById = async (id) => {
     const query = 'SELECT * FROM tb_users WHERE id = $1;'
     const values = [id]
