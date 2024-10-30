@@ -1,9 +1,10 @@
 import express from 'express';
 import { index, register, getUserById, update, deleteUserById} from '../../controllers/user/userController.js';
+import loginRequired from '../../middlewares/loginRequired.js';
 
 const router = express.Router();
 
-router.get('/', index);
+router.get('/', loginRequired, index);
 
 router.get('/:id', getUserById)
 
