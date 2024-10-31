@@ -44,9 +44,8 @@ export const register = async (req, res) => {
   const data = req.body;
   try {
     const userId = await insertUser(data);
-    const profileId = await insertProfile(data, userId);
     return res.status(201).json({
-      id: profileId,
+      id: userId,
       message: "User registered successfully",
     });
   } catch (err) {

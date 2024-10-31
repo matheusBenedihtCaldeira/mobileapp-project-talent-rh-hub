@@ -3,7 +3,9 @@ import {
   selectProfiles,
   updateProfileById,
   deleteById,
+  insertProfile
 } from "../../models/profile/ProfileModels.js";
+import { insertUser } from "../../models/user/userModels.js";
 
 export const index = async (req, res) => {
   try {
@@ -29,6 +31,30 @@ export const getProfileById = async (req, res) => {
         error: "Profile not found",
       });
     } else {
+      res.status(500).json({
+        error: "Internal Server Error",
+      });
+    }
+  }
+};
+
+//Controller responsavel por registrar uma novo user
+export const register = async (req, res) => {
+  const data = req.body;
+  try {
+    const userId = await insertUser(data);
+    const profileId = await insertProfile(data, userId);
+    return res.status(201).json({
+      id: profileId,
+      message: "Profile registered successfully",
+    });
+  } catch (err) {
+    if (err.message === "Profile already exists") {
+      res.status(409).json({
+        error: "Profile already exists",
+      });
+    } else {
+      console.log(err);
       res.status(500).json({
         error: "Internal Server Error",
       });

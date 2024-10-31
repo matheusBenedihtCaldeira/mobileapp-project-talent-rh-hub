@@ -4,30 +4,32 @@ import bcrypt from "bcrypt";
 
 export const selectProfiles = async () => {
   const query = `
-  SELECT 
-    p.user_id,
-    u.email,
-    r.role AS role,
-    p.first_name,
-    p.last_name,
-    p.location,
-    p.phone_number,
-    p.job_title,
-    p.department,
-    m.first_name AS manager_first_name,
-    m.last_name AS manager_last_name,
-    p.skills,
-    p.education
+    SELECT 
+      p.user_id,
+      u.email,
+      r.role AS role,
+      p.first_name,
+      p.last_name,
+      p.location,
+      p.phone_number,
+      p.job_title,
+      d.name AS department,
+      m.first_name AS manager_first_name,
+      m.last_name AS manager_last_name,
+      p.skills,
+      p.education
     FROM 
-        tb_profiles p
+       tb_profiles p
     JOIN 
-        tb_users u ON p.user_id = u.id
+      tb_users u ON p.user_id = u.id
     LEFT JOIN 
-        tb_roles r ON u.role_id = r.id
+      tb_roles r ON u.role_id = r.id
     LEFT JOIN 
-        tb_profiles m ON p.manager_id = m.user_id
+      tb_profiles m ON p.manager_id = m.user_id
+    LEFT JOIN 
+      tb_departments d ON p.department_id = d.id
     ORDER BY 
-        p.user_id;
+      p.user_id;
   `;
   const result = await db_conn.query(query);
   return result.rows;
@@ -51,7 +53,7 @@ export const insertProfile = async (data, user_id) => {
         location, 
         phone_number, 
         job_title, 
-        department, 
+        department_id, 
         manager_id, 
         skills, 
         education) 
@@ -63,7 +65,7 @@ export const insertProfile = async (data, user_id) => {
       data.location,
       data.phone_number,
       data.job_title,
-      data.department,
+      data.department_id,
       data.manager_id,
       data.skills,
       data.education,
@@ -79,31 +81,33 @@ export const insertProfile = async (data, user_id) => {
 export const selectProfileById = async (id) => {
   const query = `
     SELECT 
-    p.user_id,
-    u.email,
-    r.role AS role,
-    p.first_name,
-    p.last_name,
-    p.location,
-    p.phone_number,
-    p.job_title,
-    p.department,
-    m.first_name AS manager_first_name,
-    m.last_name AS manager_last_name,
-    p.skills,
-    p.education
+      p.user_id,
+      u.email,
+      r.role AS role,
+      p.first_name,
+      p.last_name,
+      p.location,
+      p.phone_number,
+      p.job_title,
+      d.name AS department,
+      m.first_name AS manager_first_name,
+      m.last_name AS manager_last_name,
+      p.skills,
+      p.education
     FROM 
-        tb_profiles p
+      tb_profiles p
     JOIN 
-        tb_users u ON p.user_id = u.id
+      tb_users u ON p.user_id = u.id
     LEFT JOIN 
-        tb_roles r ON u.role_id = r.id
+      tb_roles r ON u.role_id = r.id
     LEFT JOIN 
-        tb_profiles m ON p.manager_id = m.user_id
+      tb_profiles m ON p.manager_id = m.user_id
+    LEFT JOIN 
+      tb_departments d ON p.department_id = d.id
     WHERE 
       p.user_id = $1
     ORDER BY 
-        p.user_id;
+      p.user_id;
   `;
   const values = [id];
   const res = await db_conn.query(query, values);
