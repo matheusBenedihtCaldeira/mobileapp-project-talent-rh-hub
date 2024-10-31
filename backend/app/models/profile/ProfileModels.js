@@ -3,7 +3,32 @@ import db_conn from "../../config/db_conn.js";
 import bcrypt from "bcrypt";
 
 export const selectProfiles = async () => {
-  const query = "SELECT * FROM tb_profiles;";
+  const query = `
+  SELECT 
+    p.user_id,
+    u.email,
+    r.role AS role,
+    p.first_name,
+    p.last_name,
+    p.location,
+    p.phone_number,
+    p.job_title,
+    p.department,
+    m.first_name AS manager_first_name,
+    m.last_name AS manager_last_name,
+    p.skills,
+    p.education
+    FROM 
+        tb_profiles p
+    JOIN 
+        tb_users u ON p.user_id = u.id
+    LEFT JOIN 
+        tb_roles r ON u.role_id = r.id
+    LEFT JOIN 
+        tb_profiles m ON p.manager_id = m.user_id
+    ORDER BY 
+        p.user_id;
+  `;
   const result = await db_conn.query(query);
   return result.rows;
 };
@@ -52,7 +77,34 @@ export const insertProfile = async (data, user_id) => {
 };
 
 export const selectProfileById = async (id) => {
-  const query = "SELECT * FROM tb_profiles WHERE id = $1;";
+  const query = `
+    SELECT 
+    p.user_id,
+    u.email,
+    r.role AS role,
+    p.first_name,
+    p.last_name,
+    p.location,
+    p.phone_number,
+    p.job_title,
+    p.department,
+    m.first_name AS manager_first_name,
+    m.last_name AS manager_last_name,
+    p.skills,
+    p.education
+    FROM 
+        tb_profiles p
+    JOIN 
+        tb_users u ON p.user_id = u.id
+    LEFT JOIN 
+        tb_roles r ON u.role_id = r.id
+    LEFT JOIN 
+        tb_profiles m ON p.manager_id = m.user_id
+    WHERE 
+      p.user_id = $1
+    ORDER BY 
+        p.user_id;
+  `;
   const values = [id];
   const res = await db_conn.query(query, values);
   if (res.rowCount === 0) {
