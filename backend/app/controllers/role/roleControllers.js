@@ -4,7 +4,7 @@ import {
   registerRole,
   roleById,
   updateRoleById,
-} from "../../models/roles/RoleModels.js";
+} from "../../models/roles/roleModels.js";
 
 //Controller responsavel por listar todas as roles da base de dados
 export const index = async (req, res) => {

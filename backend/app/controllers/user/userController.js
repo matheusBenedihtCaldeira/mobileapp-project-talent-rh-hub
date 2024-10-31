@@ -3,8 +3,10 @@ import {
   selectUserById,
   insertUser,
   updateUserById,
-  deleteById
-} from "../../models/user/UserModels.js";
+  deleteById,
+} from "../../models/user/userModels.js";
+
+import { insertProfile } from "../../models/profile/ProfileModels.js";
 
 //Controller responsavel por listar todas os users da base de dados
 export const index = async (req, res) => {
@@ -42,8 +44,9 @@ export const register = async (req, res) => {
   const data = req.body;
   try {
     const userId = await insertUser(data);
-    res.status(201).json({
-      id: userId,
+    const profileId = await insertProfile(data, userId);
+    return res.status(201).json({
+      id: profileId,
       message: "User registered successfully",
     });
   } catch (err) {
@@ -52,6 +55,7 @@ export const register = async (req, res) => {
         error: "User already exists",
       });
     } else {
+      console.log(err);
       res.status(500).json({
         error: "Internal Server Error",
       });
