@@ -1,61 +1,75 @@
-import { React, useState } from "react";
-import { Image, Text } from "react-native";
-import { Background, Container, AreaInput, RecuperarSenha } from "./styles";
-import { Button, HelperText, TextInput } from "react-native-paper";
+import { useState } from "react";
+import {
+  View,
+  TextInput,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import { styles } from "./styles";
+import Header from "../../components/Header";
+import { apiHandler } from "../../services/axiosApi";
 
-export default function SignIn() {
+export default function SignIn({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const [error, setError] = useState(false);
 
-  const handleLogin = () => {
-    if (!email.includes("@")) {
-      setError(true);
-      return;
+  const handleSingIn = async() => {
+    if (password === "" || email === "") {
+      alert("Preencha todos os campos");
+    } else if (!email.includes("@")) {
+      alert("Email invalido");
+    }
+    try{
+      const body = {
+        email: email,
+        password: password
+      }
+      const res = await apiHandler.post('/token', body, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      if(res.status === 200){
+        navigation.navigate("Home");
+      }
+    }catch(err){
+      console.log(err);
     }
   };
 
   return (
-    <Background>
-      <Container>
-        <Image
-          source={require("../../assets/logo.png")}
-          style={{ width: 200, height: 200, marginBottom: 10 }}
-          resizeMode="contain"
-        />
-        <AreaInput>
+    <View style={styles.container}>
+      <Header />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.formContainer}>
+          <Text style={styles.text}>E-mail:</Text>
           <TextInput
-            label="E-mail"
             value={email}
-            mode={"outlined"}
             onChangeText={(email) => setEmail(email)}
-            outlineColor="#1e40af"
-            activeOutlineColor="#1e40af"
-            style={{}}
+            style={styles.input}
+            keyboardType="email-address"
           />
+
+          <Text style={styles.text}>Senha:</Text>
           <TextInput
-            label="Password"
-            secureTextEntry
-            mode={"outlined"}
-            onChangeText={(password) => setPassword(password)}
-            outlineColor="#1e40af"
-            activeOutlineColor="#1e40af"
             value={password}
+            onChangeText={(password) => setPassword(password)}
+            style={styles.input}
+            secureTextEntry={true}
           />
-          <RecuperarSenha>Esqueceu sua senha?</RecuperarSenha>
-          <Button
-            icon="login"
-            mode="contained"
-            onPress={handleLogin}
-            style={{ marginTop: 18 }}
-          >
-            Login
-          </Button>
-          <HelperText type="error" visible={error}>
-                        Error: E-mail address is invalid!
-                </HelperText>
-        </AreaInput>
-      </Container>
-    </Background>
+
+          <TouchableOpacity style={styles.button} onPress={handleSingIn}>
+            <Text style={styles.buttonText}>Login</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
+            <Text style={styles.naoText}>Não tem conta?</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </View>
   );
 }

@@ -1,12 +1,13 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import Header from "../../Header";
+import Header from "../../components/Header";
+
 
 export default function MeuTime() {
   return (
     <View style={styles.container}>
-      <Header />
+      <Header/>
 
       <View style={styles.MeuTime}>
         <Text

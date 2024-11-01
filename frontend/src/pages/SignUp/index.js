@@ -4,16 +4,16 @@ import { styles } from "./styles";
 import Header from "../../components/Header";
 
 
-export default function SignUp() {
-  const [name, setName] = useState("");
+export default function SignUp({navigation}) {
+  const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [cpf, setCpf] = useState("");
-  const [error, setError] = useState(false);
+  
 
   const handleSingUp = () => {
-    if(password === "" || confirmPassword ==="" || name==="" || email==="" || cpf===""){
+    if(password === "" || confirmPassword ==="" || firstName==="" || email==="" || cpf===""){
       alert("Preencha todos os campos");
       
     
@@ -26,7 +26,7 @@ export default function SignUp() {
     } else if (!email.includes("@")) {
       alert("Email invalido")
   }else{
-    //colocar aqui para mudarde tela
+    navigation.navigate("Home")
   
   }
 
@@ -40,10 +40,10 @@ export default function SignUp() {
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.formContainer}>
        
-      <Text style={styles.text}>Nome Completo:</Text>
+      <Text style={styles.text}>Nome:</Text>
       <TextInput
-        value={name}
-        onChangeText={(name) => setName(name)}
+        value={firstName}
+        onChangeText={(firstName) => setFirstName(firstName)}
         style={styles.input}
         autoCapitalize="words"
       />

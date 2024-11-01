@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
-import { styles } from "./style";
+import { styles} from './style.js'
 
 export default function Header() {
   return (

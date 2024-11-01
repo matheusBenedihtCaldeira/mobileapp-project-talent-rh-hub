@@ -1,4 +1,5 @@
 import express from "express";
+import cors from 'cors';
 
 import RoleRoutes from "./routes/roleRoutes/roleRoutes.js";
 import UserRoutes from "./routes/userRoutes/userRoutes.js";
@@ -7,6 +8,12 @@ import ProfileRoutes from "./routes/profileRoutes/ProfileRoutes.js";
 import DepartmentRoutes from './routes/department/DepartmentRoutes.js'
 
 const app = express();
+
+app.use(cors({
+    origin: 'http://localhost:8081', 
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.use(express.json());
 

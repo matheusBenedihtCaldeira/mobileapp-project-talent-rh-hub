@@ -3,7 +3,7 @@ import { DefaultTheme } from 'react-native-paper';
 
 // Suas cores personalizadas
 const customColors = {
-  primary: '#1e3a8a',
+  primary: 'red',
   accent: 'blue',
   background: 'white',
   surface: 'red',

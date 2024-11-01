@@ -1,38 +1,62 @@
-import styled from "styled-components/native";
+import { StyleSheet } from "react-native";
 
-export const Background = styled.View`
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-    padding: 20px; /* Ajusta o padding para controlar o espaço */
-`;
+export const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: "#D9D9D9",
+    },
 
-export const AreaInput = styled.View`
-    flex-direction: column;
-    width: 80%;
-    gap: 5px;
-`;
+    formContainer: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      alignContent: "center",
+      padding: 30,
+    },
+  
+    text: {
+      fontSize: 18,
+      marginBottom: 5,
+      fontWeight: "300",
+      alignSelf: "flex-start",
+      fontWeight: "bold",
+      color: "#2C3E50",
+    },
+  
+  
+    input: {
+      height: 40,
+      borderColor: "#2C3E50",
+      borderWidth: 1,
+      width: "100%",
+      paddingHorizontal: 10,
+      borderRadius: 5,
+      marginBottom: 15,
+      backgroundColor: "white",
+  
+    },
+  
+  
+    button: {
+      backgroundColor: "#2C3E50",
+      padding: 10,
+      borderRadius: 5,
+      marginTop: 10,
+      width: "50%",
+      alignItems: "center",
+    },
+    buttonText: {
+      color: "white",
+      fontSize: 18,
+      fontWeight: "bold",
+    },
+    naoText: {
+      marginTop: 20,
+      marginBottom: 10,
+      color: "#2C3E50",
+      fontSize: 18,
+      fontWeight: "bold",
+    },
 
-export const Container = styled.View`
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin-top: -150px;
-`;
 
-export const Titulo = styled.Text`
-  font-family: 'Robot';
-  font-size: 24px;
-  font-weight: normal;
-  color: #333;
-  text-align: center;
-  margin-top: 20px;
-`;
-
-export const RecuperarSenha = styled.Text`
-  font-size: 13px;
-  font-weight: normal;
-  color: #333;
-  text-align: right;
-  margin-top: 5px;
-`;
+  });
