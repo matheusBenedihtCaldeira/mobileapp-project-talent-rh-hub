@@ -6,6 +6,8 @@ import UserRoutes from "./routes/userRoutes/userRoutes.js";
 import TokenRoutes from "./routes/tokenRoutes/tokenRoutes.js";
 import ProfileRoutes from "./routes/profileRoutes/ProfileRoutes.js";
 import DepartmentRoutes from './routes/department/DepartmentRoutes.js'
+import AssessmentRoutes from './routes/assessment/AssessmentRoutes.js';
+import VacanciesRoutes from './/routes/vacanciesRoutes/VacanciesRoutes.js'
 
 const app = express();
 
@@ -25,5 +27,7 @@ app.use("/api/users", UserRoutes);
 app.use("/api/token", TokenRoutes);
 app.use("/api/profile", ProfileRoutes);
 app.use("/api/department", DepartmentRoutes);
+app.use("/api/assessment", AssessmentRoutes);
+app.use("/api/vacancies", VacanciesRoutes);
 
 export default app;
