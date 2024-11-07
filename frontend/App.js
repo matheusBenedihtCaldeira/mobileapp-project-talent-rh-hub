@@ -7,19 +7,26 @@ import Projects from "../frontend/src/pages/Projects"
 import SignIn from "../frontend/src/pages/SignIn"
 import SignUp from "../frontend/src/pages/SignUp"
 import Profile from "./src/pages/Profile";
-
+import Jobs from "./src/pages/Jobs";
+import Vacancies from "./src/pages/Vacancies";
 
 const Stack = createStackNavigator();
 
 export default function App({navigation}) {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="SignIn">
+      <Stack.Navigator initialRouteName="Jobs">
 
       <Stack.Screen 
           name="SignIn" 
           component={SignIn} 
           options={{ title: "SignIn" }} 
+        />
+
+         <Stack.Screen 
+          name="Jobs" 
+          component={Jobs} 
+          options={{ title: "Jobs" }} 
         />
 
         <Stack.Screen 
@@ -48,6 +55,12 @@ export default function App({navigation}) {
           name="Profile" 
           component={Profile} 
           options={{ title: "Profile" }} 
+        />
+
+          <Stack.Screen 
+          name="Vacancies" 
+          component={Vacancies} 
+          options={{ title: "Vacancies" }} 
         />
         
       </Stack.Navigator>

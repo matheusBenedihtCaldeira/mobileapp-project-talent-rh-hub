@@ -4,7 +4,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import Header from "../../components/Header";
 import { styles } from "./styles";
 
-export default function Profile() {
+export default function Profile({navigation}) {
   return (
     <View style={styles.container}>
       <Header />

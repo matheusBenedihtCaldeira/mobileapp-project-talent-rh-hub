@@ -22,22 +22,19 @@ export default function SignIn({ navigation }) {
     } else if (!email.includes("@")) {
       alert("Email invalido");
     }
-    try{
-      const body = {
-        email: email,
-        password: password
-      }
-      const res = await apiHandler.post('/token', body, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      if(res.status === 200){
-        navigation.navigate("Home");
-      }
-    }catch(err){
-      console.log(err);
+
+    const body = {
+      email: email,
+      password: password
     }
+    
+    const resposta = await apiHandler.post('/token', body)
+    if(resposta.status === 200){
+      navigation.navigate("Home");
+      console.log('logou legal dog')
+    }
+
+
   };
 
   return (

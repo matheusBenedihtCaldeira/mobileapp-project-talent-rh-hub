@@ -1,25 +1,44 @@
-import React from "react";
-import { View, Text, ScrollView } from "react-native";
+import React, { useState } from "react";
+import { View, Text, ScrollView, Button } from "react-native";
 import { styles } from "./styles";
 import Header from "../../components/Header";
+import { useEffect } from "react";
+import { apiHandler } from "../../services/axiosApi";
 
 export default function Projects() {
+
+    const [departamentos, setDepartamentos] = useState([])
+
+    //Toda vez que o componente(pagina) carregar ou atualizar o useEffect é executado
+    useEffect(() => {
+        getDepartamentos()
+    }, [])
+
+    const getDepartamentos = async() => {
+            try{
+                const response = await apiHandler.get('/department')
+                console.log('rodando a função de puxar departamento')
+                if(response.status === 200){
+                    setDepartamentos(response.data)
+                }
+            }catch(err){
+                console.log("ERRO NA REQUISICAO: ", err)
+            }
+        }
+
     return (
         <View style={styles.container}>
             <Header />
             <View style={styles.projectBox}>
-                <Text style={styles.projectTitle}>Meus Projetos</Text>
+                <Text style={styles.projectTitle}>Departamentos</Text>
             </View>
             
             <ScrollView style={styles.scrollContainer}>
-                
-                <View style={styles.projectItem}>
-                    <Text style={styles.projectText}>Projeto 1</Text>
-                </View>
-                <View style={styles.projectItem}>
-                    <Text style={styles.projectText}>Projeto 2</Text>
-                </View>
-                
+                {departamentos.map((departamento) => (
+                    <View style={styles.projectItem}>
+                        <Text style={styles.projectText}>{departamento.name}</Text>
+                    </View>
+                ))}
             </ScrollView>
         </View>
     );

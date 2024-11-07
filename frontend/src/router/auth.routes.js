@@ -5,6 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack'
 import Projects from '../pages/Projects';
 import Home from '../pages/Home';
 import MeuTime from '../pages/MeuTime';
+import Profile from '../pages/Profile';
 
 const AuthStack = createStackNavigator();
 
@@ -30,6 +31,14 @@ export default function AuthRoutes(){
         <AuthStack.Screen 
             name='MeuTime'
             component={MeuTime}
+            options={{
+                headerShown: false
+            }}
+            />
+
+        <AuthStack.Screen 
+            name='Profile'
+            component={Profile}
             options={{
                 headerShown: false
             }}

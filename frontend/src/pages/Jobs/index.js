@@ -1,18 +1,17 @@
 import { useState } from "react";
 import { View, TextInput, Text, TouchableOpacity, ScrollView } from "react-native";
 import { styles } from "./styles";
-import Header from "../../Header";
+import Header from "../../components/Header";
+import { Picker } from "@react-native-picker/picker";
 
 
-export default function Jobs() {
+
+export default function Jobs({navigation}) {
   const [tituloDaVaga, setTituloDaVaga] = useState("");
   const [descricaoDaVaga,setDescricaoDaVaga ] = useState("");
   const [departamento, setDepartamento] = useState("");
-  const [experiencia, setExperiencia] = useState("");
-  const [contrato, setContrato] = useState("");
-  const [modeloDeTrabalho,setModeloDeTrabalho] = useState("");
-  const[habilidades,setHabilidades] =useState("");
-  const [qualificacoes, setQualificacoes]= useState("");
+ const [requester,setRequester] = useState("");
+  
   
 
   return (
@@ -42,49 +41,34 @@ export default function Jobs() {
         style={styles.input}
       />
 
-
-    <Text style={styles.text}>Departamento ou setor:</Text>
-      <TextInput
-        value={departamento}
-        onChangeText={(departamento) => setDepartamento(departamento)}
-        style={styles.input}
-      />
-
-    <Text style={styles.text}>Nível de experiência:</Text>
-      <TextInput
-        value={experiencia}
-        onChangeText={(experiencia) => setExperiencia(experiencia)}
-        style={styles.input}
-      />
-
-    <Text style={styles.text}>Tipo de contrato:</Text>
-      <TextInput
-        value={contrato}
-        onChangeText={(contrato) => setContrato(contrato)}
-        style={styles.input}
-      />
-
-      <Text style={styles.text}>Modelo de trabalho:</Text>
-      <TextInput
-        value={modeloDeTrabalho}
-        onChangeText={(modeloDeTrabalho) => setModeloDeTrabalho(modeloDeTrabalho)}
-        style={styles.input}
-      />
+         <Text style={styles.text}>Solicitante:</Text>
+          <Picker
+            selectedValue={requester}
+            style={styles.input}
+            onValueChange={(itemValue) => setRequester(itemValue)}
+          >
+            <Picker.Item label="Selecione o ID do solicitante" value="" />
+            <Picker.Item label="1" value="solicitante1" />
+            <Picker.Item label="2" value="solicitante2" />
+        
+          </Picker>
 
 
-    <Text style={styles.text}>Habilidades:</Text>
-      <TextInput
-        value={habilidades}
-        onChangeText={(habilidades) => setHabilidades(habilidades)}
-        style={styles.input}
-      />
+          <Text style={styles.text}>Departamento:</Text>
+          <Picker
+            selectedValue={departamento}
+            style={styles.input}
+            onValueChange={(itemValue) => setDepartmento(itemValue)}
+          >
+            <Picker.Item label="Selecione o ID do solicitante" value="" />
+            <Picker.Item label="1" value="departamento1" />
+            <Picker.Item label="2" value="departamento2" />
+        
+          </Picker>
 
-      <Text style={styles.text}>Qualificações:</Text>
-      <TextInput
-        value={qualificacoes}
-        onChangeText={(qualificacoes) => setQualificacoes(qualificacoes)}
-        style={styles.input}
-      />
+
+    
+
 
       <TouchableOpacity style={styles.button}>
         <Text style={styles.buttonText}>Criar vaga</Text>
