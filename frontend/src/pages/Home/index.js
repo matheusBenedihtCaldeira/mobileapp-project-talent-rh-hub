@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, Image } from "react-native"; // Added Image here
+import { View, Text, TouchableOpacity } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { styles } from "./style";
 import Header from "../../components/Header";
@@ -7,21 +7,24 @@ import Header from "../../components/Header";
 export default function Home({ navigation }) {
   return (
     <View style={styles.container}>
-      <Header/>
+      <Header />
+      
+      <View style={styles.CaixaGrande}>
+        <Text style={styles.welcomeText}>Bem-vindo!</Text>
+        <Text style={styles.descriptionText}>
+          Navegue pelos seus projetos, equipe, vagas e avaliações de forma fácil e intuitiva.
+        </Text>
+      </View>
 
-      
-      
-      <View style={styles.Caixa} />
-      
       <View style={styles.menu}>
         <TouchableOpacity
           style={styles.actionButton}
           onPress={() => navigation.navigate("MeuTime")}
         >
           <View style={styles.areaButton}>
-            <FontAwesome name="users" size={24} color="#525252" />
+            <FontAwesome name="users" size={24} color="#2C3E50" />
           </View>
-          <Text style={styles.menuText}>Meu time</Text>
+          <Text style={styles.menuText}>Meu Time</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -29,30 +32,30 @@ export default function Home({ navigation }) {
           onPress={() => navigation.navigate("Projects")}
         >
           <View style={styles.areaButton}>
-            <FontAwesome name="folder" size={24} color="#525252" />
+            <FontAwesome name="folder" size={24} color="#2C3E50" />
           </View>
           <Text style={styles.menuText}>Projetos</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.actionButton}>
           <View style={styles.areaButton}>
-            <FontAwesome name="star" size={24} color="#525252" />
+            <FontAwesome name="star" size={24} color="#2C3E50" />
           </View>
           <Text style={styles.menuText}>Avaliações</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.actionButton}
-        onPress={() => navigation.navigate("Vacancies")}
+        <TouchableOpacity
+          style={styles.actionButton}
+          onPress={() => navigation.navigate("Vacancies")}
         >
           <View style={styles.areaButton}>
-            <FontAwesome name="clipboard" size={24} color="#525252" />
+            <FontAwesome name="clipboard" size={24} color="#2C3E50" />
           </View>
           <Text style={styles.menuText}>Vagas</Text>
         </TouchableOpacity>
       </View>
 
-      <View style={styles.linxota} />
-      <View style={styles.Caixota} />
+      <View style={styles.separator} />
     </View>
   );
 }

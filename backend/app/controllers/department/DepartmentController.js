@@ -2,6 +2,8 @@ import {
   selectDepartments,
   selectDepartmentById,
   insertDepartment,
+  selectProfilesByDepartmentId,
+  indexProfilesByUserId,
   deleteById,
   updatedDepartmentById,
 } from "../../models/department/DepartmentModels.js";
@@ -38,6 +40,36 @@ export const getDepartmentById = async (req, res) => {
     }
   }
 };
+
+export const indexProfilesByUserIdControllers = async(req, res) => {
+  try{
+    const id = req.params.id;
+    const profiles = await indexProfilesByUserId(id);
+    return res.status(200).json({
+      profiles: profiles
+    })
+  }catch(err){
+    console.log(`ERROR: ${err}`)
+    res.status(500).json({
+      error: "Internal Server Error"
+    })
+  }
+} 
+
+export const indexProfilesByDepartmentIdController = async(req, res) => {
+  try{
+    const id = req.params.id;
+    const profiles = await selectProfilesByDepartmentId(id);
+    return res.status(200).json({
+      profiles: profiles
+    })
+  }catch(err){
+    console.log(`ERROR: ${err}`)
+    res.status(500).json({
+      error: "Internal Server Error"
+    })
+  }
+}
 
 export const register = async (req, res) => {
   const data = req.body;

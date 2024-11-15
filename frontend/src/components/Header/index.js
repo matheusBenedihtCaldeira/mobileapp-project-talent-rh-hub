@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
-import { styles} from './style.js'
+import { styles } from './style.js';
 import { useNavigation } from "@react-navigation/native";
 
 export default function Header() {
@@ -9,19 +9,22 @@ export default function Header() {
   return (
     <View style={styles.header}>
       <TouchableOpacity 
-      style={styles.buttonMenu}
-      onPress={() => navigation.navigate ("Home")}
+        style={styles.buttonMenu}
+        onPress={() => navigation.navigate("Home")}
+        activeOpacity={0.7} // Efeito de toque
       >
         <FontAwesome5 name="bars" size={27} color="#FFF" />
       </TouchableOpacity>
-      
-      <TouchableOpacity style={styles.titulo}>
-      <Text style={styles.titulo}>TalentSpot</Text>
-        </TouchableOpacity>
+
+      <View style={styles.titleContainer}>
+        <Text style={styles.titleText}>TalentSpot</Text>
+      </View>
+
       <TouchableOpacity 
-      style={styles.buttonProfile}
-      onPress={() => navigation.navigate("Profile")}
-     >
+        style={styles.buttonProfile}
+        onPress={() => navigation.navigate("Profile")}
+        activeOpacity={0.7} // Efeito de toque
+      >
         <FontAwesome5 name="user-circle" size={27} color="#FFF" />
       </TouchableOpacity>
     </View>

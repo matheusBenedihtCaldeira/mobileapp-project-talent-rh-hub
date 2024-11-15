@@ -32,6 +32,49 @@ export const selectDepartmentById = async (id) => {
     return res.rows[0];
 }
 
+export const selectProfilesByDepartmentId = async (id) => {
+    const query = `
+        SELECT 
+            p.first_name AS user_name,
+            p.last_name AS user_lastname,
+            u.email AS user_email
+        FROM 
+            tb_profiles p
+        JOIN 
+            tb_users u ON p.user_id = u.id
+        WHERE 
+            p.department_id = $1;
+    `
+    const values = [id]
+    const res = await db_conn.query(query, values)
+    if (res.rowCount === 0) {
+        throw new Error('Department not found'); 
+    }
+    return res.rows[0];
+}
+
+export const indexProfilesByUserId = async(id) => {
+    const query = `
+    SELECT 
+        p2.first_name AS user_name,
+        p2.last_name AS user_lastname,
+        u.email AS user_email
+    FROM tb_profiles p1
+        JOIN tb_profiles p2 ON p1.department_id = p2.department_id
+        JOIN tb_users u ON p2.user_id = u.id
+    WHERE 
+        p1.user_id = $1
+    AND 
+        p2.user_id != p1.user_id;
+    `
+    const values = [id]
+    const res = await db_conn.query(query, values)
+    if (res.rowCount === 0) {
+        throw new Error('User not found'); 
+    }
+    return res.rows[0];
+}
+
 export const updatedDepartmentById = async (id, data) => {
     const query = `
         UPDATE tb_departments 

@@ -5,13 +5,13 @@ import { styles } from "./styles";
 import Header from "../../components/Header";
 import { Picker } from "@react-native-picker/picker";
 
-export default function Jobs({ navigation }) {
+export default function JobsEditar({ navigation, route }) {
   const [requesters, setRequesters] = useState([]);
   const [departamentos, setDepartamentos] = useState([]);
-  const [tituloDaVaga, setTituloDaVaga] = useState("");
-  const [descricaoDaVaga, setDescricaoDaVaga] = useState("");
-  const [departamento, setDepartamento] = useState("");
-  const [requester, setRequester] = useState("");
+  const [tituloDaVaga, setTituloDaVaga] = useState(route.params.data.titulo);
+  const [descricaoDaVaga, setDescricaoDaVaga] = useState(route.params.data.descricao);
+  const [departamento, setDepartamento] = useState(route.params.data.departamento_id);
+  const [requester, setRequester] = useState(route.params.data.solicitante_id);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,10 +21,9 @@ export default function Jobs({ navigation }) {
         setRequesters(requestersData);
         setDepartamentos(departamentosData);
       } catch (error) {
-        Alert.alert("Erro", "Falha ao carregar dados.");
+        Alert.alert("Erro", "Falha ao carregar os dados.");
       }
     };
-
     fetchData();
   }, []);
 
@@ -56,12 +55,12 @@ export default function Jobs({ navigation }) {
         departamento_id: departamento,
         solicitante_id: requester,
       };
-      await apiHandler.post("/vacancies/register", body);
-      Alert.alert("Sucesso", "Vaga cadastrada com sucesso!");
-      console.log("Dados enviados:", body);
+      await apiHandler.patch(`/vacancies/update/${route.params.data.id}`, body);
+      Alert.alert("Sucesso", "Vaga atualizada com sucesso!");
+      navigation.goBack();
     } catch (error) {
-      console.error("Erro ao cadastrar a vaga:", error);
-      Alert.alert("Erro", "Não foi possível cadastrar a vaga.");
+      console.error("Erro ao atualizar a vaga:", error);
+      Alert.alert("Erro", "Não foi possível atualizar a vaga.");
     }
   };
 
@@ -69,29 +68,29 @@ export default function Jobs({ navigation }) {
     <View style={styles.container}>
       <Header />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Text style={styles.title}>Detalhes da vaga</Text>
+        <Text style={styles.title}>Atualizar vaga</Text>
 
         <View style={styles.formContainer}>
-          <Text style={styles.text}>Título da vaga</Text>
+          <Text style={styles.text}>Título da vaga:</Text>
           <TextInput
             value={tituloDaVaga}
             onChangeText={setTituloDaVaga}
             style={styles.input}
-            placeholder="Digite o título"
+            placeholder="Digite o título da vaga"
             placeholderTextColor="#A0A0A0"
           />
 
-          <Text style={styles.text}>Descrição</Text>
+          <Text style={styles.text}>Descrição:</Text>
           <TextInput
             value={descricaoDaVaga}
             onChangeText={setDescricaoDaVaga}
             style={styles.input}
-            placeholder="Digite a descrição"
+            placeholder="Digite a descrição da vaga"
             placeholderTextColor="#A0A0A0"
             multiline
           />
 
-          <Text style={styles.text}>Solicitante</Text>
+          <Text style={styles.text}>Solicitante:</Text>
           <Picker
             selectedValue={requester}
             style={styles.picker}
@@ -103,7 +102,7 @@ export default function Jobs({ navigation }) {
             ))}
           </Picker>
 
-          <Text style={styles.text}>Departamento</Text>
+          <Text style={styles.text}>Departamento:</Text>
           <Picker
             selectedValue={departamento}
             style={styles.picker}
@@ -116,7 +115,7 @@ export default function Jobs({ navigation }) {
           </Picker>
 
           <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-            <Text style={styles.buttonText}>Criar Vaga</Text>
+            <Text style={styles.buttonText}>Atualizar Vaga</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

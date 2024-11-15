@@ -2,10 +2,24 @@ import  db_conn  from '../../config/db_conn.js';
 
 //Async faz virar assincrona '-'
 export const getAllAssessments = async () => {
-    const query = 'SELECT * FROM tb_assessments';
+    const query = `
+        SELECT 
+            a.id AS assessment_id,
+            u_funcionario.email AS funcionario_email,
+            u_avaliador.email AS avaliador_email,
+            a.data_avaliacao,
+            a.feedback,
+            a.pontuacao
+        FROM 
+            tb_assessments a
+        JOIN 
+            tb_users u_funcionario ON a.id_funcionario = u_funcionario.id
+        JOIN 
+            tb_users u_avaliador ON a.id_avaliador = u_avaliador.id;
+
+    `;
     const result = await db_conn.query(query);
     return result.rows;
-
 }
 
 //Insere uma nova avaliação
@@ -25,7 +39,23 @@ export const deleteAssessment = async (id) => {
 }
 
 export const getAssessmentByProfileId = async (id_funcionario) => {
-    const query = 'SELECT * FROM tb_assessments WHERE id_funcionario = $1';
+    const query = `
+        SELECT 
+            a.id AS assessment_id,
+            u_funcionario.email AS funcionario_email,
+            u_avaliador.email AS avaliador_email,
+            a.data_avaliacao,
+            a.feedback,
+            a.pontuacao
+        FROM 
+            tb_assessments a
+        JOIN 
+            tb_users u_funcionario ON a.id_funcionario = u_funcionario.id
+        JOIN 
+            tb_users u_avaliador ON a.id_avaliador = u_avaliador.id
+        WHERE 
+            id_funcionario = $1;
+    `;
     const result = await db_conn.query(query, [id_funcionario]);
     return result.rows;
 }

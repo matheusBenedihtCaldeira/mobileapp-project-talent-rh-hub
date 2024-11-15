@@ -2,7 +2,23 @@ import db_conn from "../../config/db_conn.js";
 
 
 export const getAllVacancies = async () => {
-    const query = 'SELECT * FROM tb_vacancies;'; 
+    const query = ` 
+        SELECT 
+    v.id,
+    v.titulo,
+    v.descricao,
+    v.departamento_id,
+    d.name AS nome_departamento,
+    v.solicitante_id,
+    s.email AS nome_solicitante
+FROM 
+    tb_vacancies v
+INNER JOIN 
+    tb_departments d ON v.departamento_id = d.id
+INNER JOIN 
+    tb_users s ON v.solicitante_id = s.id;
+
+    `; 
     const result = await db_conn.query(query);
     return result.rows;
 }
@@ -35,7 +51,7 @@ export const deleteVacancies = async (id) =>{
 }
 
 export const updateVacancies = async (id, data) => {
-    const query = 'UPDATE tb_vacancies SET titulo = $1 descricao = $2, departamento_id = $3, solicitante_id = $4 WHERE id = $5'; 
+    const query = 'UPDATE tb_vacancies SET titulo = $1, descricao = $2, departamento_id = $3, solicitante_id = $4 WHERE id = $5'; 
     const values = [data.titulo, data.descricao, data.departamento_id, data.solicitante_id, id]
     const result = await db_conn.query(query, values)
     if (result.rowCount === 0) {
@@ -43,5 +59,3 @@ export const updateVacancies = async (id, data) => {
     }
     return;
 }
-
-

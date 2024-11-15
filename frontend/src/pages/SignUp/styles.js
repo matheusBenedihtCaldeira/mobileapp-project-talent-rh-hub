@@ -1,53 +1,55 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: "#D9D9D9",
-    },
-
-    formContainer: {
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-      alignContent: "center",
-      padding: 30,
-    },
-  
-    text: {
-      fontSize: 18,
-      marginBottom: 5,
-      fontWeight: "300",
-      alignSelf: "flex-start",
-      fontWeight: "bold",
-      color: "#2C3E50",
-    },
-  
-  
-    input: {
-      height: 40,
-      borderColor: "#2C3E50",
-      borderWidth: 1,
-      width: "100%",
-      paddingHorizontal: 10,
-      borderRadius: 5,
-      marginBottom: 15,
-      backgroundColor: "white",
-  
-    },
-  
-  
-    button: {
-      backgroundColor: "#2C3E50",
-      padding: 10,
-      borderRadius: 5,
-      marginTop: 10,
-      width: "50%",
-      alignItems: "center",
-    },
-    buttonText: {
-      color: "white",
-      fontSize: 18,
-      fontWeight: "bold",
-    }
-  });
+  container: {
+    flex: 1,
+    backgroundColor: "#F2F4F7",
+  },
+  formContainer: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 10,
+    padding: 20,
+    margin: 20,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  text: {
+    fontSize: 16,
+    color: "#2C3E50",
+    fontWeight: "bold",
+    marginBottom: 8,
+    alignSelf: "flex-start",
+  },
+  input: {
+    height: 45,
+    borderColor: "#BDC3C7",
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginBottom: 15,
+    backgroundColor: "#FFFFFF",
+  },
+  picker: {
+    height: 45,
+    borderColor: "#BDC3C7",
+    borderWidth: 1,
+    borderRadius: 5,
+    marginBottom: 15,
+    backgroundColor: "#FFFFFF",
+  },
+  button: {
+    backgroundColor: "#34495E",
+    paddingVertical: 12,
+    borderRadius: 5,
+    alignItems: "center",
+    marginTop: 15,
+  },
+  buttonText: {
+    color: "#FFF",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+});

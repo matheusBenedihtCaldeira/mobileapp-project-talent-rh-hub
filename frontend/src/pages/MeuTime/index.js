@@ -3,149 +3,90 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import Header from "../../components/Header";
 
+const TeamMember = ({ name, email, role }) => (
+  <View style={styles.memberContainer}>
+    <FontAwesome name="user-circle" size={35} color="#2C3E50" style={styles.icon} />
+    <View style={styles.memberDetails}>
+      <Text style={styles.memberName}>{name}</Text>
+      <Text style={styles.memberEmail}>{email}</Text>
+    </View>
+    <Text style={styles.memberRole}>{role}</Text>
+  </View>
+);
 
 export default function MeuTime() {
   return (
     <View style={styles.container}>
-      <Header/>
-
-      <View style={styles.MeuTime}>
-        <Text
-          style={{
-            color: "#FFF",
-            fontSize: 30,
-            fontWeight: "bold",
-            textAlign: "center",
-            marginTop: 10,
-          }}
-        >
-          Meu time
-        </Text>
+      <Header />
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerText}>Meu Time</Text>
         <TouchableOpacity>
-          <FontAwesome
-            name="caret-down"
-            size={20}
-            color="#FFF"
-            style={{
-              flexDirection: "column",
-              marginStart: 20,
-              top: -25,
-              position: "absolute",
-            }}
-          />
+          <FontAwesome name="caret-down" size={20} color="#FFF" style={styles.dropdownIcon} />
         </TouchableOpacity>
       </View>
 
-      <View style={styles.Time}>
-        <Text
-          style={{
-            position: "absolute",
-            left: "83%",
-            top: "50%",
-            fontSize: 10,
-          }}
-        >
-          Dev.BackEnd
-        </Text>
-
-        <FontAwesome
-          name="user-circle"
-          size={35}
-          color="#000"
-          style={{
-            position: "absolute",
-            top: "25%",
-            left: "3%",
-          }}
-        />
-
-        <Text
-          style={{
-            color: "#000",
-            fontSize: 20,
-            flex: 3,
-            left: "15%",
-          }}
-        >
-          Matheus Benneh
-        </Text>
-
-        <Text
-          style={{
-            color: "#000",
-            fontSize: 15,
-            flex: 3,
-            left: "15%",
-          }}
-        >
-          Matheus.Benneh@empresa.com.br
-        </Text>
-      </View>
-
-      <View style={styles.Time}>
-        <View style={styles.Time}>
-          <Text
-            style={{
-              position: "absolute",
-              left: "83%",
-              top: "50%",
-              fontSize: 10,
-            }}
-          >
-            Dev.BackEnd
-          </Text>
-
-          <FontAwesome
-            name="user-circle"
-            size={35}
-            color="#000"
-            style={{
-              position: "absolute",
-              top: "25%",
-              left: "3%",
-            }}
-          />
-
-          <Text
-            style={{
-              color: "#000",
-              fontSize: 20,
-              flex: 3,
-              left: "15%",
-            }}
-          >
-            Yasmin Martins
-          </Text>
-
-          <Text
-            style={{
-              color: "#000",
-              fontSize: 15,
-              flex: 3,
-              left: "15%",
-            }}
-          >
-            yasmin.martins@empresa.com.br
-          </Text>
-        </View>
-      </View>
+      {/* Lista de membros do time */}
+      <TeamMember name="Matheus Benneh" email="matheus.benneh@empresa.com.br" role="Dev. BackEnd" />
+      <TeamMember name="Yasmin Martins" email="yasmin.martins@empresa.com.br" role="Dev. BackEnd" />
     </View>
   );
 }
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F5F5F5",
   },
-
-  MeuTime: {
-    backgroundColor: "#2e2e2e",
-    height: 60,
+  headerContainer: {
+    backgroundColor: "#2C3E50",
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
-  Time: {
-    borderColor: "#2e2e2e",
+  headerText: {
+    color: "#FFF",
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+  dropdownIcon: {
+    marginLeft: 10,
+  },
+  memberContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderColor: "#BDC3C7",
     borderWidth: 1,
-    height: 60,
+    borderRadius: 5,
+    padding: 10,
+    marginHorizontal: 20,
+    marginVertical: 10,
+    backgroundColor: "#FFFFFF",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 3,
+  },
+  icon: {
+    marginRight: 15,
+  },
+  memberDetails: {
+    flex: 1,
+  },
+  memberName: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#2C3E50",
+  },
+  memberEmail: {
+    fontSize: 14,
+    color: "#7F8C8D",
+  },
+  memberRole: {
+    fontSize: 12,
+    color: "#2C3E50",
+    fontWeight: "500",
   },
 });

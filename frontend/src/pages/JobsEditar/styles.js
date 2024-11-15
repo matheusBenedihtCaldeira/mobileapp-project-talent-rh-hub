@@ -14,13 +14,13 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 8,
-    elevation: 5,
+    elevation: 4,
   },
   title: {
     fontSize: 26,
     fontWeight: "bold",
     color: "#34495E",
-    marginVertical: 20,
+    marginVertical: 15,
     textAlign: "center",
   },
   text: {
@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     alignSelf: "flex-start",
   },
   input: {
-    height: 40,
+    height: 45,
     borderColor: "#B0C4DE",
     borderWidth: 1,
     borderRadius: 5,
@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "#FFF",
   },
   picker: {
-    height: 40,
+    height: 45,
     borderColor: "#B0C4DE",
     borderWidth: 1,
     borderRadius: 5,
