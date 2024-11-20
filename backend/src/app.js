@@ -20,10 +20,12 @@ app.use(cors({
 
 app.use(express.json());
 
-//Role routes
-app.use("/api/roles", RoleRoutes);
 
-//User routes
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+  });
+  
+app.use("/api/roles", RoleRoutes);
 app.use("/api/users", UserRoutes);
 app.use("/api/token", TokenRoutes);
 app.use("/api/profile", ProfileRoutes);
