@@ -29,7 +29,16 @@ export const insertUser = async (data) => {
 }
 
 export const getUserByEmail = async(email) => {
-    const query = 'SELECT * FROM tb_users WHERE email = $1;'
+    const query = `
+        SELECT 
+            u.id as id,
+            u.email as email,
+            u.password as password,
+            r.role AS role_name
+        FROM tb_users u
+        INNER JOIN tb_roles r ON u.role_id = r.id
+        WHERE u.email = $1;
+    `;
     const values = [email]
     const res = await db_conn.query(query, values)
     if (res.rowCount === 0) {

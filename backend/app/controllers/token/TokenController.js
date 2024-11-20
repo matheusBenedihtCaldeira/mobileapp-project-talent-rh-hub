@@ -25,7 +25,7 @@ export const store = async (req, res) => {
       {
         id: user.id,
         email: user.email,
-        role: user.role,
+        role: user.role_name,
       },
       process.env.TOKEN_SECRET
     );
@@ -33,6 +33,7 @@ export const store = async (req, res) => {
       token: token,
     });
   } catch (err) {
+    console.log(err);
     if (err.message === "User not found") {
       return res.status(404).json({
         error: "User not found",
