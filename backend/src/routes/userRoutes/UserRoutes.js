@@ -4,7 +4,7 @@ import loginRequired from '../../middlewares/loginRequired.js';
 
 const router = express.Router();
 
-router.get('/', loginRequired, index);
+router.get('/', index);
 
 router.get('/:id', getUserById)
 

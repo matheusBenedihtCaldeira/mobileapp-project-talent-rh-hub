@@ -7,6 +7,7 @@ import Home from '../pages/Home';
 import MeuTime from '../pages/MeuTime';
 import Profile from '../pages/Profile';
 import JobsEditar from '../pages/JobsEditar';
+import CadastroAvaliacao from '../pages/Assessment';
 
 const AuthStack = createStackNavigator();
 
@@ -28,7 +29,6 @@ export default function AuthRoutes(){
                 headerShown: false
             }}
             />
-
             <AuthStack.Screen 
             name='Home'
             component={Home}

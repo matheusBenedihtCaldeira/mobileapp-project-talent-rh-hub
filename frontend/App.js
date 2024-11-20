@@ -10,6 +10,7 @@ import Profile from "./src/pages/Profile";
 import Jobs from "./src/pages/Jobs";
 import Vacancies from "./src/pages/Vacancies";
 import JobsEditar from "./src/pages/JobsEditar";
+import CadastroAvaliacao from "./src/pages/Assessment";
 
 const Stack = createStackNavigator();
 
@@ -26,6 +27,11 @@ export default function App({ navigation }) {
           name="Jobs" 
           component={Jobs} 
           options={{ title: "Jobs", headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="CadastroAvaliacao" 
+          component={CadastroAvaliacao}
+          options={{ title: "CadastroAvaliacao", headerShown: false }} 
         />
         <Stack.Screen 
           name="JobsEditar" 

@@ -8,11 +8,12 @@ export default function Home({ navigation }) {
   return (
     <View style={styles.container}>
       <Header />
-      
+
       <View style={styles.CaixaGrande}>
         <Text style={styles.welcomeText}>Bem-vindo!</Text>
         <Text style={styles.descriptionText}>
-          Navegue pelos seus projetos, equipe, vagas e avaliações de forma fácil e intuitiva.
+          Navegue pelos seus projetos, equipe, vagas e avaliações de forma fácil
+          e intuitiva.
         </Text>
       </View>
 
@@ -37,7 +38,10 @@ export default function Home({ navigation }) {
           <Text style={styles.menuText}>Projetos</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.actionButton}>
+        <TouchableOpacity
+          style={styles.actionButton}
+          onPress={() => navigation.navigate("CadastroAvaliacao")}
+        >
           <View style={styles.areaButton}>
             <FontAwesome name="star" size={24} color="#2C3E50" />
           </View>
