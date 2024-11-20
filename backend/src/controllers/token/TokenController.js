@@ -1,4 +1,4 @@
-import { getUserByEmail } from "../../models/user/userModels.js";
+import { getUserByEmail } from "../../models/user/UserModels.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";

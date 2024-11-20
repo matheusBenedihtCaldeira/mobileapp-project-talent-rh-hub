@@ -7,8 +7,6 @@ import {
   deleteProfileById,
 } from "../../controllers/profile/ProfileControllers.js";
 
-import loginRequired from "../../middlewares/loginRequired.js";
-
 const router = express.Router();
 
 router.get("/", index);

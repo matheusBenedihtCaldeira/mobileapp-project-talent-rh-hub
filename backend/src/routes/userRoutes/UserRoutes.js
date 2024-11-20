@@ -1,6 +1,5 @@
 import express from 'express';
-import { index, register, getUserById, update, deleteUserById} from '../../controllers/user/userController.js';
-import loginRequired from '../../middlewares/loginRequired.js';
+import { index, register, getUserById, update, deleteUserById} from '../../controllers/user/UserController.js';
 
 const router = express.Router();
 

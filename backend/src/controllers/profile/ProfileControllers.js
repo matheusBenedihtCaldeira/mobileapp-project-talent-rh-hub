@@ -5,7 +5,7 @@ import {
   deleteById,
   insertProfile
 } from "../../models/profile/ProfileModels.js";
-import { insertUser } from "../../models/user/userModels.js";
+import { insertUser } from "../../models/user/UserModels.js";
 
 export const index = async (req, res) => {
   try {

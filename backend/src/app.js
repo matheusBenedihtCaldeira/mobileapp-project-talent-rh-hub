@@ -1,7 +1,7 @@
 import express from "express";
 import cors from 'cors';
 
-import RoleRoutes from "./routes/roleRoutes/roleRoutes.js";
+import RoleRoutes from "./routes/roleRoutes/RoleRoutes.js";
 import UserRoutes from "./routes/userRoutes/UserRoutes.js";
 import TokenRoutes from "./routes/tokenRoutes/tokenRoutes.js";
 import ProfileRoutes from "./routes/profileRoutes/ProfileRoutes.js";
