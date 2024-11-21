@@ -1,60 +1,22 @@
-import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack'
-
-
-import Projects from '../pages/Projects';
-import Home from '../pages/Home';
-import MeuTime from '../pages/MeuTime';
-import Profile from '../pages/Profile';
-import JobsEditar from '../pages/JobsEditar';
-import CadastroAvaliacao from '../pages/Assessment';
-
+import React from "react";
+import { createStackNavigator } from "@react-navigation/stack";
+import SignIn from "../pages/SignIn";
+import SignUp from "../pages/SignUp";
 const AuthStack = createStackNavigator();
 
-export default function AuthRoutes(){
-    return(
-        <AuthStack.Navigator>
-            <AuthStack.Screen 
-            name='Projects'
-            component={Projects}
-            options={{
-                headerShown: false
-            }}
-            />
-
-            <AuthStack.Screen 
-            name='JobsEditar'
-            component={JobsEditar}
-            options={{
-                headerShown: false
-            }}
-            />
-            <AuthStack.Screen 
-            name='Home'
-            component={Home}
-            options={{
-                headerShown: false
-            }}
-            />
-
-        <AuthStack.Screen 
-            name='MeuTime'
-            component={MeuTime}
-            options={{
-                headerShown: false
-            }}
-            />
-
-        <AuthStack.Screen 
-            name='Profile'
-            component={Profile}
-            options={{
-                headerShown: false
-            }}
-            />
-
-
-            
-        </AuthStack.Navigator>
-    )
+export default function AuthRoutes() {
+  return (
+    <AuthStack.Navigator>
+      <AuthStack.Screen
+        name="SignIn"
+        component={SignIn}
+        options={{ title: "SignIn", headerShown: false }}
+      />
+      <AuthStack.Screen
+        name="SignUp"
+        component={SignUp}
+        options={{ title: "SignUp", headerShown: false }}
+      />
+    </AuthStack.Navigator>
+  );
 }

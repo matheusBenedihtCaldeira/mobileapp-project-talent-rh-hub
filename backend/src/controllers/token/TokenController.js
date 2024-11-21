@@ -31,6 +31,10 @@ export const store = async (req, res) => {
     );
     res.json({
       token: token,
+      user: {
+        id: user.id,
+        email: user.email
+      }
     });
   } catch (err) {
     console.log(err);

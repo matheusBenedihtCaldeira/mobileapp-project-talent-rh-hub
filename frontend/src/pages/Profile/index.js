@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useContext} from "react";
 import { View, Text } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import Header from "../../components/Header";
 import { styles } from "./styles";
-
+import { AuthContext } from "../../contexts/auth";
 export default function Profile({ navigation }) {
+  const {user} = useContext(AuthContext)
   return (
     <View style={styles.container}>
       <Header />
@@ -13,7 +14,7 @@ export default function Profile({ navigation }) {
         <FontAwesome name="user-circle" size={120} color="#2C3E50" style={styles.icon} />
       </View>
 
-      <Text style={styles.userName}>Marcos Gabriel Iurak</Text>
+      <Text style={styles.userName}>{user.email}</Text>
 
       <View style={styles.detailsContainer}>
         <View style={styles.detailBox}>

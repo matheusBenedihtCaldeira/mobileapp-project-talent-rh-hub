@@ -15,6 +15,7 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+    paddingTop: 60, 
   },
   titleContainer: {
     flex: 1,
@@ -40,5 +41,29 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 25,
     backgroundColor: "#2C3E50",
+  },
+
+  // Estilos para o Modal
+  modalOverlay: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.6)",
+  },
+  modalContainer: {
+    backgroundColor: "#FFF",
+    borderRadius: 10,
+    width: 200,
+    padding: 20,
+    alignItems: "center",
+  },
+  menuItem: {
+    padding: 10,
+    width: "100%",
+    alignItems: "center",
+  },
+  menuText: {
+    fontSize: 16,
+    color: "#333",
   },
 });

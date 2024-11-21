@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   View,
   TextInput,
@@ -10,12 +10,15 @@ import {
 } from "react-native";
 import { styles } from "./styles";
 import Header from "../../components/Header";
-import { apiHandler } from "../../services/axiosApi";
+import { AuthContext } from "../../contexts/auth";
 
 export default function SignIn({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
   const [loading, setLoading] = useState(false);
+
+  const {signIn} = useContext(AuthContext)
 
   const handleSignIn = async () => {
     if (!email || !password) {
@@ -28,23 +31,7 @@ export default function SignIn({ navigation }) {
       return;
     }
 
-    try {
-      setLoading(true);
-      const body = { email, password };
-      const response = await apiHandler.post("/token", body);
-
-      if (response.status === 200) {
-        Alert.alert("Sucesso", "Login realizado com sucesso!");
-        navigation.navigate("Home");
-      } else {
-        Alert.alert("Erro", "Falha no login. Verifique suas credenciais.");
-      }
-    } catch (error) {
-      Alert.alert("Erro", "Ocorreu um problema na autenticação. Tente novamente mais tarde.");
-      console.error("Erro de login:", error);
-    } finally {
-      setLoading(false);
-    }
+    signIn(email, password)  
   };
 
   return (
