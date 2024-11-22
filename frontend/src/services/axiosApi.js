@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const baseURL = "http://127.0.0.1:8993/api";
+const baseURL = "http://172.20.10.2:8993/api";
 
 export const apiHandler = axios.create({
   baseURL,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });

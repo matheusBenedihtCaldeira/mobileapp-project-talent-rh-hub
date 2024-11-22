@@ -1,16 +1,22 @@
-import express from 'express';
-import { index, register, getUserById, update, deleteUserById} from '../../controllers/user/UserController.js';
-import loginRequired from '../../middlewares/loginRequired.js';
+import express from "express";
+import {
+  index,
+  register,
+  getUserById,
+  update,
+  deleteUserById,
+} from "../../controllers/user/UserController.js";
+import loginRequired from "../../middlewares/loginRequired.js";
 const router = express.Router();
 
-router.get('/', loginRequired, index);
+router.get("/", index);
 
-router.get('/:id', getUserById, )
+router.get("/:id", getUserById);
 
-router.post('/register', loginRequired, register);
+router.post("/register", register);
 
-router.patch('/update/:id', loginRequired, update);
+router.patch("/update/:id", update);
 
-router.delete('/delete/:id', loginRequired, deleteUserById);
+router.delete("/delete/:id", deleteUserById);
 
 export default router;

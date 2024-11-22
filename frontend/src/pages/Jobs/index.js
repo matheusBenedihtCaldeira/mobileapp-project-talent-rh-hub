@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
 import { apiHandler } from "../../services/axiosApi";
-import { View, TextInput, Text, TouchableOpacity, ScrollView, Alert } from "react-native";
+import {
+  View,
+  TextInput,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  Alert,
+} from "react-native";
 import { styles } from "./styles";
 import Header from "../../components/Header";
 import { Picker } from "@react-native-picker/picker";
@@ -30,7 +37,7 @@ export default function Jobs({ navigation }) {
 
   const fetchRequesters = async () => {
     try {
-      const response = await apiHandler('/users');
+      const response = await apiHandler("/users");
       return response.data;
     } catch (error) {
       console.error("Erro ao buscar solicitantes:", error);
@@ -40,7 +47,7 @@ export default function Jobs({ navigation }) {
 
   const fetchDepartamentos = async () => {
     try {
-      const response = await apiHandler('/department');
+      const response = await apiHandler("/department");
       return response.data;
     } catch (error) {
       console.error("Erro ao buscar departamentos:", error);
@@ -68,7 +75,10 @@ export default function Jobs({ navigation }) {
   return (
     <View style={styles.container}>
       <Header />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+      >
         <Text style={styles.title}>Detalhes da vaga</Text>
 
         <View style={styles.formContainer}>
@@ -92,28 +102,27 @@ export default function Jobs({ navigation }) {
           />
 
           <Text style={styles.text}>Solicitante</Text>
-          <Picker
-            selectedValue={requester}
-            style={styles.picker}
-            onValueChange={setRequester}
-          >
-            <Picker.Item label="Selecione o solicitante" value="" />
-            {requesters.map((item) => (
-              <Picker.Item key={item.id} label={item.email} value={item.id} />
-            ))}
-          </Picker>
+          <View style={styles.pickerWrapper}>
+            <Picker selectedValue={requester} onValueChange={setRequester}>
+              <Picker.Item label="Selecione o solicitante" value="" />
+              {requesters.map((item) => (
+                <Picker.Item key={item.id} label={item.email} value={item.id} />
+              ))}
+            </Picker>
+          </View>
 
           <Text style={styles.text}>Departamento</Text>
-          <Picker
-            selectedValue={departamento}
-            style={styles.picker}
-            onValueChange={setDepartamento}
-          >
-            <Picker.Item label="Selecione o departamento" value="" />
-            {departamentos.map((item) => (
-              <Picker.Item key={item.id} label={item.name} value={item.id} />
-            ))}
-          </Picker>
+          <View style={styles.pickerWrapper}>
+            <Picker
+              selectedValue={departamento}
+              onValueChange={setDepartamento}
+            >
+              <Picker.Item label="Selecione o departamento" value="" />
+              {departamentos.map((item) => (
+                <Picker.Item key={item.id} label={item.name} value={item.id} />
+              ))}
+            </Picker>
+          </View>
 
           <TouchableOpacity style={styles.button} onPress={handleSubmit}>
             <Text style={styles.buttonText}>Criar Vaga</Text>

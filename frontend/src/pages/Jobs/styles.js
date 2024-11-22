@@ -39,13 +39,18 @@ export const styles = StyleSheet.create({
     marginBottom: 15,
     backgroundColor: "#FFF",
   },
-  picker: {
-    height: 40,
+  pickerWrapper: {
+    height: 50,
     borderColor: "#B0C4DE",
     borderWidth: 1,
     borderRadius: 5,
     marginBottom: 15,
+    justifyContent: "center",
     backgroundColor: "#FFF",
+  },
+  picker: {
+    color: "#34495E", // Ajusta a cor do texto do Picker
+    marginHorizontal: 8,
   },
   button: {
     backgroundColor: "#34495E",
