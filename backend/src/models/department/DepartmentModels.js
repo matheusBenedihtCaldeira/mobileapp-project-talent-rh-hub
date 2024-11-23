@@ -35,6 +35,7 @@ export const selectDepartmentById = async (id) => {
 export const selectProfilesByDepartmentId = async (id) => {
     const query = `
         SELECT 
+            u.id AS user_id,
             p.first_name AS user_name,
             p.last_name AS user_lastname,
             u.email AS user_email
@@ -50,12 +51,13 @@ export const selectProfilesByDepartmentId = async (id) => {
     if (res.rowCount === 0) {
         throw new Error('Department not found'); 
     }
-    return res.rows[0];
+    return res.rows;
 }
 
 export const indexProfilesByUserId = async(id) => {
     const query = `
     SELECT 
+        u.id AS user_id,
         p2.first_name AS user_name,
         p2.last_name AS user_lastname,
         u.email AS user_email
@@ -72,7 +74,7 @@ export const indexProfilesByUserId = async(id) => {
     if (res.rowCount === 0) {
         throw new Error('User not found'); 
     }
-    return res.rows[0];
+    return res.rows;
 }
 
 export const updatedDepartmentById = async (id, data) => {

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, Alert } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import Header from "../../components/Header";
 import { styles } from "./styles";
@@ -7,7 +7,7 @@ import { AuthContext } from "../../contexts/auth";
 import { apiHandler } from "../../services/axiosApi";
 
 export default function Profile({ navigation }) {
-  const { user } = useContext(AuthContext);
+  const { user, signOut } = useContext(AuthContext);
   const [profile, setProfile] = useState(null);
 
   const fetchProfileData = async () => {
@@ -17,6 +17,17 @@ export default function Profile({ navigation }) {
       setProfile(profile);
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const handleEdit = () => {
+    navigation.navigate("EditProfile", { profile });
+  };
+
+  const handleDelete = async () => {
+    const response = await apiHandler.delete(`/profile/delete/${profile.user_id}`)
+    if(response.status === 204){
+      signOut()
     }
   };
 
@@ -45,12 +56,22 @@ export default function Profile({ navigation }) {
             {profile ? profile.first_name : "Carregando..."}{" "}
             {profile ? profile.last_name : "Carregando..."}
           </Text>
+          <View style={styles.actionIcons}>
+            {/* Ícone de editar */}
+            <TouchableOpacity onPress={handleEdit} style={styles.iconButton}>
+              <FontAwesome name="edit" size={24} color="rgb(28, 40, 51)" />
+            </TouchableOpacity>
+            {/* Ícone de excluir */}
+            <TouchableOpacity onPress={handleDelete} style={styles.iconButton}>
+              <FontAwesome name="trash" size={24} color="#b91c1c" />
+            </TouchableOpacity>
+          </View>
         </View>
 
         <View style={styles.detailsContainer}>
-          {[
+          {[ 
             {
-              label: "Cargo",
+              label: "Atribuição",
               value: profile ? profile.job_title : "Carregando...",
             },
             {

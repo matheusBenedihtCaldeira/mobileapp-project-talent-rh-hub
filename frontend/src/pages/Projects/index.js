@@ -1,30 +1,28 @@
-import React, { useState } from "react";
-import { View, Text, ScrollView, Button } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { styles } from "./styles";
 import Header from "../../components/Header";
-import { useEffect } from "react";
 import { apiHandler } from "../../services/axiosApi";
 
-export default function Projects() {
+export default function Projects({ navigation }) { 
+    const [departamentos, setDepartamentos] = useState([]);
 
-    const [departamentos, setDepartamentos] = useState([])
-
-    //Toda vez que o componente(pagina) carregar ou atualizar o useEffect é executado
+    // Toda vez que o componente (página) carregar ou atualizar, o useEffect é executado
     useEffect(() => {
-        getDepartamentos()
-    }, [])
+        getDepartamentos();
+    }, []);
 
-    const getDepartamentos = async() => {
-            try{
-                const response = await apiHandler.get('/department')
-                console.log('rodando a função de puxar departamento')
-                if(response.status === 200){
-                    setDepartamentos(response.data)
-                }
-            }catch(err){
-                console.log("ERRO NA REQUISICAO: ", err)
+    const getDepartamentos = async () => {
+        try {
+            const response = await apiHandler.get('/department');
+            console.log('rodando a função de puxar departamento');
+            if (response.status === 200) {
+                setDepartamentos(response.data);
             }
+        } catch (err) {
+            console.log("ERRO NA REQUISICAO: ", err);
         }
+    };
 
     return (
         <View style={styles.container}>
@@ -35,8 +33,10 @@ export default function Projects() {
             
             <ScrollView style={styles.scrollContainer}>
                 {departamentos.map((departamento) => (
-                    <View style={styles.projectItem}>
-                        <Text style={styles.projectText}>{departamento.name}</Text>
+                    <View style={styles.projectItem} key={departamento.id}> 
+                        <TouchableOpacity onPress={() => navigation.navigate("Colaboradores", { id: departamento.id })}>
+                            <Text style={styles.projectText}>{departamento.name}</Text>
+                        </TouchableOpacity>
                     </View>
                 ))}
             </ScrollView>

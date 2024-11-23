@@ -8,6 +8,8 @@ import MeuTime from "../pages/MeuTime";
 import Projects from "../pages/Projects";
 import Profile from "../pages/Profile";
 import Vacancies from "../pages/Vacancies";
+import Colaboradores from "../pages/Colaboradores";
+import EditProfile from "../pages/EditProfile";
 const AppStack = createStackNavigator();
 
 export default function AppRoutes() {
@@ -52,6 +54,16 @@ export default function AppRoutes() {
         name="Vacancies"
         component={Vacancies}
         options={{ title: "Vacancies", headerShown: false }}
+      />
+      <AppStack.Screen
+        name="Colaboradores"
+        component={Colaboradores}
+        options={{ title: "Colaboradores", headerShown: false }}
+      />
+      <AppStack.Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={{ title: "Colaboradores", headerShown: false }}
       />
     </AppStack.Navigator>
   );

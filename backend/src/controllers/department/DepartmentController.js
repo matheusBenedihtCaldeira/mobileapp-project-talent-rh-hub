@@ -45,9 +45,7 @@ export const indexProfilesByUserIdControllers = async(req, res) => {
   try{
     const id = req.params.id;
     const profiles = await indexProfilesByUserId(id);
-    return res.status(200).json({
-      profiles: profiles
-    })
+    return res.status(200).json(profiles)
   }catch(err){
     console.log(`ERROR: ${err}`)
     res.status(500).json({
@@ -60,9 +58,7 @@ export const indexProfilesByDepartmentIdController = async(req, res) => {
   try{
     const id = req.params.id;
     const profiles = await selectProfilesByDepartmentId(id);
-    return res.status(200).json({
-      profiles: profiles
-    })
+    return res.status(200).json(profiles)
   }catch(err){
     console.log(`ERROR: ${err}`)
     res.status(500).json({

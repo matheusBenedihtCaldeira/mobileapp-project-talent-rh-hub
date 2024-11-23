@@ -65,17 +65,19 @@ export const register = async (req, res) => {
 //Controller responsavel por atualizar um profile
 export const update = async (req, res) => {
   try {
+    console.log(req.body);
     const id = req.params.id;
     const data = req.body;
-
     await updateProfileById(id, data);
     return res.status(200).json({ status: "ok" });
   } catch (err) {
+    console.log(err);
     if (err.message === "Profile not found") {
       res.status(404).json({
         error: "Profile not found",
       });
     } else {
+      console.log(err)
       res.status(500).json({
         error: "Internal Server Error",
       });
@@ -90,6 +92,7 @@ export const deleteProfileById = async (req, res) => {
     await deleteById(id);
     return res.status(204).send();
   } catch (err) {
+
     if (err.message === "Profile not found") {
       res.status(404).json({
         error: "User not found",

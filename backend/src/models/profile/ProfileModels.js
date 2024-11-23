@@ -80,7 +80,8 @@ export const insertProfile = async (data, user_id) => {
 
 export const selectProfileById = async (id) => {
   const query = `
-    SELECT 
+   	SELECT 
+	    p.id,
       p.user_id,
       u.email,
       r.role AS role,
@@ -90,10 +91,12 @@ export const selectProfileById = async (id) => {
       p.phone_number,
       p.job_title,
       d.name AS department,
-      m.first_name AS manager_first_name,
-      m.last_name AS manager_last_name,
+      p.manager_id,
+	    p.department_id,
       p.skills,
-      p.education
+      p.education,
+      p.manager_id,
+      r.id AS role_id
     FROM 
       tb_profiles p
     JOIN 
@@ -118,44 +121,47 @@ export const selectProfileById = async (id) => {
 };
 
 export const updateProfileById = async (id, data) => {
+  console.log(data);
+  console.log("id", id);
+
   const query = `
-        UPDATE profile 
-        SET first_name = $1, 
-            last_name = $2, 
-            bio = $3, 
-            location = $4, 
-            phone_number = $5, 
-            job_title = $6, 
-            department = $7, 
-            manager = $8, 
-            skills = $9, 
-            education = $10,
-            updated_at = NOW()
-        WHERE id = $11;
-    `;
+    UPDATE tb_profiles 
+    SET 
+      first_name = $1,
+      last_name = $2,
+      location = $3,
+      phone_number = $4,
+      skills = $5,
+      education = $6
+    WHERE id = $7;
+  `;
+
   const values = [
     data.first_name,
     data.last_name,
-    data.bio,
     data.location,
     data.phone_number,
-    data.job_title,
-    data.department,
-    data.manager,
-    data.skills,
-    data.education,
+    `{${data.skills.join(",")}}`, 
+    `{${data.education.join(",")}}`, 
     id,
   ];
 
-  const res = await db_conn.query(query, values);
-  if (res.rowCount === 0) {
-    throw new Error("Profile not found");
+  try {
+    const res = await db_conn.query(query, values);
+    if (res.rowCount === 0) {
+      throw new Error("Profile not found");
+    }
+    console.log("Profile updated successfully");
+    return;
+  } catch (error) {
+    console.error("Error updating profile:", error.message);
+    throw new Error("Failed to update profile");
   }
-  return;
 };
 
+
 export const deleteById = async (id) => {
-  const query = "DELETE FROM tb_profiles WHERE id = $1;";
+  const query = "DELETE FROM tb_users WHERE id = $1;";
   const values = [id];
   const res = await db_conn.query(query, values);
   if (res.rowCount === 0) {
