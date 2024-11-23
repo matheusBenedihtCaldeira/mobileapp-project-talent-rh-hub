@@ -228,7 +228,7 @@ export default function SignUp({ navigation }) {
             style={styles.picker}
             onValueChange={setRoleId}
           >
-            <Picker.Item label="Selecione uma atribuição" value="" /> {/* Valor padrão */}
+            <Picker.Item label="Selecione uma atribuição" value="default" />
             {roles.map((role) => (
               <Picker.Item key={role.id} label={role.role} value={role.id} />
             ))}
@@ -240,7 +240,7 @@ export default function SignUp({ navigation }) {
             style={styles.picker}
             onValueChange={setDepartmentId}
           >
-            <Picker.Item label="Selecione um departamento" value="" /> {/* Valor padrão */}
+            <Picker.Item label="Selecione um departamento" value="default" /> 
             {departamentos.map((dep) => (
               <Picker.Item key={dep.id} label={dep.name} value={dep.id} />
             ))}
@@ -252,7 +252,7 @@ export default function SignUp({ navigation }) {
             style={styles.picker}
             onValueChange={setManagerId}
           >
-            <Picker.Item label="Selecione um gestor" value="" /> {/* Valor padrão */}
+            <Picker.Item label="Selecione um gestor" value="default" />
             {managers.map((manager) => (
               <Picker.Item
                 key={manager.id}

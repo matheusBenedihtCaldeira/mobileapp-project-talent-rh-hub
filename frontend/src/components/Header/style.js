@@ -56,6 +56,18 @@ export const styles = StyleSheet.create({
     width: 200,
     padding: 20,
     alignItems: "center",
+    position: "relative",
+  },
+  closeButton: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+  },
+  menuItemsContainer: {
+    flexDirection: "column",
+    alignItems: "center",
+    width: "100%",
+    marginTop: 30, // Ajuste o espaçamento entre os ícones
   },
   menuItem: {
     padding: 10,

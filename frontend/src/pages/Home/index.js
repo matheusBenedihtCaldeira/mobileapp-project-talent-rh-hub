@@ -35,7 +35,7 @@ export default function Home({ navigation }) {
           <View style={styles.areaButton}>
             <FontAwesome name="folder" size={24} color="#2C3E50" />
           </View>
-          <Text style={styles.menuText}>Projetos</Text>
+          <Text style={styles.menuText}>Departamentos</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
