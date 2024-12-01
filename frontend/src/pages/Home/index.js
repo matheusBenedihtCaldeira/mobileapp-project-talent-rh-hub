@@ -40,7 +40,7 @@ export default function Home({ navigation }) {
 
         <TouchableOpacity
           style={styles.actionButton}
-          onPress={() => navigation.navigate("CadastroAvaliacao")}
+          onPress={() => navigation.navigate("Assessment")}
         >
           <View style={styles.areaButton}>
             <FontAwesome name="star" size={24} color="#2C3E50" />

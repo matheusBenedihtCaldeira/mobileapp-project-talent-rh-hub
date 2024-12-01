@@ -9,14 +9,15 @@ export const getAllAssessments = async () => {
             u_avaliador.email AS avaliador_email,
             a.data_avaliacao,
             a.feedback,
-            a.pontuacao
+            a.pontuacao,
+			a.id_funcionario,
+			a.id_avaliador
         FROM 
             tb_assessments a
         JOIN 
             tb_users u_funcionario ON a.id_funcionario = u_funcionario.id
         JOIN 
             tb_users u_avaliador ON a.id_avaliador = u_avaliador.id;
-
     `;
     const result = await db_conn.query(query);
     return result.rows;

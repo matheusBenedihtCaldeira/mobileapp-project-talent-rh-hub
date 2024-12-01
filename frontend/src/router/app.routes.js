@@ -2,7 +2,6 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from "../pages/Home";
 import Jobs from "../pages/Jobs";
-import CadastroAvaliacao from "../pages/Assessment";
 import JobsEditar from "../pages/JobsEditar";
 import MeuTime from "../pages/MeuTime";
 import Projects from "../pages/Projects";
@@ -10,6 +9,10 @@ import Profile from "../pages/Profile";
 import Vacancies from "../pages/Vacancies";
 import Colaboradores from "../pages/Colaboradores";
 import EditProfile from "../pages/EditProfile";
+import CadastroAvaliacao from "../pages/CadastrarAvaliacao";
+import Assessment from "../pages/Assessment";
+import EditarAvaliacao from "../pages/EditAvaliacao";
+
 const AppStack = createStackNavigator();
 
 export default function AppRoutes() {
@@ -24,11 +27,6 @@ export default function AppRoutes() {
         name="Jobs"
         component={Jobs}
         options={{ title: "Jobs", headerShown: false }}
-      />
-      <AppStack.Screen
-        name="CadastroAvaliacao"
-        component={CadastroAvaliacao}
-        options={{ title: "CadastroAvaliacao", headerShown: false }}
       />
       <AppStack.Screen
         name="JobsEditar"
@@ -64,6 +62,21 @@ export default function AppRoutes() {
         name="EditProfile"
         component={EditProfile}
         options={{ title: "Colaboradores", headerShown: false }}
+      />
+      <AppStack.Screen 
+        name="CadastrarAvaliacao"
+        component={CadastroAvaliacao}
+        options={{title: "CadastrarAvaliacao", headerShown: false}}
+      />
+      <AppStack.Screen 
+        name="Assessment"
+        component={Assessment}
+        options={{title: "Assessment", headerShown: false}}
+      />
+      <AppStack.Screen 
+        name="EditarAvaliacao"
+        component={EditarAvaliacao}
+        options={{title: "EditarAvaliacao", headerShown: false}}
       />
     </AppStack.Navigator>
   );

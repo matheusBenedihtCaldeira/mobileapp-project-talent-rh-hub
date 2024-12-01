@@ -5,9 +5,10 @@ import AppRoutes from './app.routes';
 import { AuthContext } from '../contexts/auth';
 
 export default function Routes(){
+
     const {signed} = useContext(AuthContext);
 
     return(
-        signed ? <AppRoutes /> : <AuthRoutes />
+        signed ? <AppRoutes /> : <AuthRoutes /> 
     )
 }
