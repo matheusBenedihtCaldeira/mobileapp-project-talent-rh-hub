@@ -20,6 +20,25 @@ export default function Profile({ navigation }) {
     }
   };
 
+  const confirmDeleteProfile = (id) => {
+    Alert.alert(
+        "Confirmação",
+        "Tem certeza que deseja deletar esta vaga?",
+        [
+            {
+                text: "Cancelar",
+                style: "cancel",
+            },
+            {
+                text: "Deletar",
+                style: "destructive", 
+                onPress: () => handleDelete(id), 
+            },
+        ],
+        { cancelable: true } 
+    );
+};
+
   const handleEdit = () => {
     navigation.navigate("EditProfile", { profile });
   };
@@ -62,7 +81,9 @@ export default function Profile({ navigation }) {
               <FontAwesome name="edit" size={24} color="rgb(28, 40, 51)" />
             </TouchableOpacity>
             {/* Ícone de excluir */}
-            <TouchableOpacity onPress={handleDelete} style={styles.iconButton}>
+            <TouchableOpacity 
+                onPress={() => confirmDeleteProfile(profile.user_id)}
+                style={styles.iconButton}>
               <FontAwesome name="trash" size={24} color="#b91c1c" />
             </TouchableOpacity>
           </View>
