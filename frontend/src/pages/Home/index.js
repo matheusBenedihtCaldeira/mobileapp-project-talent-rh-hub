@@ -13,7 +13,7 @@ export default function Home({ navigation }) {
   // Função para buscar os dados na API FastAPI
   const fetchDataScienceInfo = async () => {
     try {
-      const response = await axios.get("http://192.168.15.7:8998/api/skillgap"); // Ajuste o endpoint conforme necessário
+      const response = await axios.get("http://3.221.150.242:8998/api/skillgap"); // Ajuste o endpoint conforme necessário
       setDataScienceInfo(response.data); // Armazena os dados recebidos
     } catch (error) {
       console.error("Erro ao buscar dados de Data Science:", error);

@@ -62,4 +62,10 @@ export const styles = StyleSheet.create({
     color: "#2C3E50",
     fontWeight: "500",
   },
+  noMembersText: {
+    fontSize: 18,
+    color: "#2C3E50",
+    textAlign: "center",
+    marginTop: 20,
+  }
 });
