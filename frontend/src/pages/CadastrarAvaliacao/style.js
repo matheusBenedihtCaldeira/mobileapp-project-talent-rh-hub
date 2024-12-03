@@ -74,12 +74,11 @@ projectBox: {
     backgroundColor: "#FFF",
   },
   picker: {
-    height: 40,
     borderColor: "#B0C4DE",
     borderWidth: 1,
     borderRadius: 5,
     marginBottom: 15,
-    backgroundColor: "#FFF",
+    backgroundColor: "#FFF"
   },
   button: {
     backgroundColor: "#34495E",

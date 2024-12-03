@@ -1,36 +1,25 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { apiHandler } from "../../services/axiosApi";
 import { View, TextInput, Text, TouchableOpacity, ScrollView, Alert } from "react-native";
 import { styles } from "./styles";
 import Header from "../../components/Header";
-import { apiHandler } from "../../services/axiosApi";
-import DropDownPicker from "react-native-dropdown-picker";
+import { Picker } from "@react-native-picker/picker";
 
 export default function JobsEditar({ navigation, route }) {
   const [requesters, setRequesters] = useState([]);
   const [departamentos, setDepartamentos] = useState([]);
-
-  // Estados do formulário
   const [tituloDaVaga, setTituloDaVaga] = useState(route.params.data.titulo);
   const [descricaoDaVaga, setDescricaoDaVaga] = useState(route.params.data.descricao);
-
-  // Estados específicos do DropDownPicker
-  const [requester, setRequester] = useState(route.params.data.solicitante_id);
-  const [requesterOpen, setRequesterOpen] = useState(false);
-  const [requesterItems, setRequesterItems] = useState([]);
-
   const [departamento, setDepartamento] = useState(route.params.data.departamento_id);
-  const [departamentoOpen, setDepartamentoOpen] = useState(false);
-  const [departamentoItems, setDepartamentoItems] = useState([]);
+  const [requester, setRequester] = useState(route.params.data.solicitante_id);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const requestersData = await fetchRequesters();
         const departamentosData = await fetchDepartamentos();
-
-        // Formata os dados para o DropDownPicker
-        setRequesterItems(requestersData.map(item => ({ label: item.email, value: item.id })));
-        setDepartamentoItems(departamentosData.map(item => ({ label: item.name, value: item.id })));
+        setRequesters(requestersData);
+        setDepartamentos(departamentosData);
       } catch (error) {
         Alert.alert("Erro", "Falha ao carregar os dados.");
       }
@@ -82,7 +71,6 @@ export default function JobsEditar({ navigation, route }) {
         <Text style={styles.title}>Atualizar vaga</Text>
 
         <View style={styles.formContainer}>
-          {/* Campo Título */}
           <Text style={styles.text}>Título da vaga:</Text>
           <TextInput
             value={tituloDaVaga}
@@ -92,7 +80,6 @@ export default function JobsEditar({ navigation, route }) {
             placeholderTextColor="#A0A0A0"
           />
 
-          {/* Campo Descrição */}
           <Text style={styles.text}>Descrição:</Text>
           <TextInput
             value={descricaoDaVaga}
@@ -103,35 +90,30 @@ export default function JobsEditar({ navigation, route }) {
             multiline
           />
 
-          {/* Campo Solicitante */}
           <Text style={styles.text}>Solicitante:</Text>
-          <DropDownPicker
-            open={requesterOpen}
-            value={requester}
-            items={requesterItems}
-            setOpen={setRequesterOpen}
-            setValue={setRequester}
-            setItems={setRequesterItems}
-            placeholder="Selecione o solicitante"
+          <Picker
+            selectedValue={requester}
             style={styles.picker}
-            dropDownContainerStyle={styles.dropDownContainer}
-          />
+            onValueChange={setRequester}
+          >
+            <Picker.Item label="Selecione o solicitante" value="" color="#2C3E50" />
+            {requesters.map((item) => (
+              <Picker.Item key={item.id} label={item.email} value={item.id}  color="#2C3E50" />
+            ))}
+          </Picker>
 
-          {/* Campo Departamento */}
           <Text style={styles.text}>Departamento:</Text>
-          <DropDownPicker
-            open={departamentoOpen}
-            value={departamento}
-            items={departamentoItems}
-            setOpen={setDepartamentoOpen}
-            setValue={setDepartamento}
-            setItems={setDepartamentoItems}
-            placeholder="Selecione o departamento"
+          <Picker
+            selectedValue={departamento}
             style={styles.picker}
-            dropDownContainerStyle={styles.dropDownContainer}
-          />
+            onValueChange={setDepartamento}
+          >
+            <Picker.Item label="Selecione o departamento" value="" color="#2C3E50" />
+            {departamentos.map((item) => (
+              <Picker.Item key={item.id} label={item.name} value={item.id} color="#2C3E50" />
+            ))}
+          </Picker>
 
-          {/* Botão de Atualização */}
           <TouchableOpacity style={styles.button} onPress={handleSubmit}>
             <Text style={styles.buttonText}>Atualizar Vaga</Text>
           </TouchableOpacity>

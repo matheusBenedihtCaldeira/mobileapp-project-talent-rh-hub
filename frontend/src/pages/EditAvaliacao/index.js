@@ -127,9 +127,9 @@ export default function EditarAvaliacao({ navigation, route }) {
             style={styles.picker}
             onValueChange={setIdFuncionario}
           >
-            <Picker.Item label="Selecione o funcionário" value="" />
+            <Picker.Item label="Selecione o funcionário" value="" color="#2C3E50" />
             {funcionarios.map((item) => (
-              <Picker.Item key={item.id} label={item.email} value={item.id} />
+              <Picker.Item key={item.id} label={item.email} value={item.id} color="#2C3E50" />
             ))}
           </Picker>
 
@@ -139,9 +139,9 @@ export default function EditarAvaliacao({ navigation, route }) {
             style={styles.picker}
             onValueChange={setIdAvaliador}
           >
-            <Picker.Item label="Selecione o avaliador" value="" />
+            <Picker.Item label="Selecione o avaliador" value="" color="#2C3E50" />
             {avaliadores.map((item) => (
-              <Picker.Item key={item.id} label={item.email} value={item.id} />
+              <Picker.Item key={item.id} label={item.email} value={item.id} color="#2C3E50" />
             ))}
           </Picker>
 

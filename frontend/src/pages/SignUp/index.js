@@ -228,9 +228,9 @@ export default function SignUp({ navigation }) {
             style={styles.picker}
             onValueChange={setRoleId}
           >
-            <Picker.Item label="Selecione uma atribuição" value="default" />
+            <Picker.Item label="Selecione uma atribuição" value="default" color="#2C3E50" />
             {roles.map((role) => (
-              <Picker.Item key={role.id} label={role.role} value={role.id} />
+              <Picker.Item key={role.id} label={role.role} value={role.id} color="#2C3E50"/>
             ))}
           </Picker>
 
@@ -240,9 +240,9 @@ export default function SignUp({ navigation }) {
             style={styles.picker}
             onValueChange={setDepartmentId}
           >
-            <Picker.Item label="Selecione um departamento" value="default" /> 
+            <Picker.Item label="Selecione um departamento" value="default" color="#2C3E50"  /> 
             {departamentos.map((dep) => (
-              <Picker.Item key={dep.id} label={dep.name} value={dep.id} />
+              <Picker.Item key={dep.id} label={dep.name} value={dep.id} color="#2C3E50"  />
             ))}
           </Picker>
 
@@ -252,12 +252,13 @@ export default function SignUp({ navigation }) {
             style={styles.picker}
             onValueChange={setManagerId}
           >
-            <Picker.Item label="Selecione um gestor" value="default" />
+            <Picker.Item label="Selecione um gestor" value="default" color="#2C3E50" />
             {managers.map((manager) => (
               <Picker.Item
                 key={manager.id}
                 label={manager.email}
                 value={manager.id}
+                color="#2C3E50" 
               />
             ))}
           </Picker>

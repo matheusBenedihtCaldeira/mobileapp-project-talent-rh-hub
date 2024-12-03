@@ -61,7 +61,7 @@ export default function Vacancies({ navigation }) {
     const showDetails = (vaga) => {
         let vagaParaExibir = '';
         if(selectedVacancy === vaga){
-            vagaParaExibir = vaga
+            vagaParaExibir = null
         }else{
             vagaParaExibir = vaga
         }

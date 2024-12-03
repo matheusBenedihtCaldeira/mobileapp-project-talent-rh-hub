@@ -40,7 +40,6 @@ export const styles = StyleSheet.create({
     backgroundColor: "#FFF",
   },
   pickerWrapper: {
-    height: 50,
     borderColor: "#B0C4DE",
     borderWidth: 1,
     borderRadius: 5,

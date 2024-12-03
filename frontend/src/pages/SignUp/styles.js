@@ -33,7 +33,6 @@ export const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
   },
   picker: {
-    height: 45,
     borderColor: "#BDC3C7",
     borderWidth: 1,
     borderRadius: 5,

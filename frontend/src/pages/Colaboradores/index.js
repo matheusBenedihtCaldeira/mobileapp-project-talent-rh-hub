@@ -35,6 +35,7 @@ export default function Colaboradores({ navigation, route }) {
       return response.data;
     } catch (err) {
       console.log(err);
+      return [];  // Retorna um array vazio em caso de erro
     }
   };
 
@@ -45,28 +46,23 @@ export default function Colaboradores({ navigation, route }) {
     };
     fetchData();
   }, []);
+
   return (
     <View style={styles.container}>
       <Header />
-      <View style={styles.headerContainer}>
-        <Text style={styles.headerText}>Meu Time</Text>
-        <TouchableOpacity>
-          <FontAwesome
-            name="caret-down"
-            size={20}
-            color="#FFF"
-            style={styles.dropdownIcon}
+      {/* Verifica se há membros no time */}
+      {team.length > 0 ? (
+        team.map((member) => (
+          <Membro
+            name={member.user_name}
+            lastname={member.user_lastname}
+            email={member.user_email}
+            key={member.user_id}
           />
-        </TouchableOpacity>
-      </View>
-      {team.map((member) => (
-        <Membro
-          name={member.user_name}
-          lastname={member.user_lastname}
-          email={member.user_email}
-          key={member.user_id}
-        />
-      ))}
+        ))
+      ) : (
+        <Text style={styles.noMembersText}>Nenhum membro encontrado.</Text> // Mensagem quando não há membros
+      )}
     </View>
   );
 }

@@ -8,11 +8,12 @@ import axios from "axios";
 export default function Home({ navigation }) {
   const [dataScienceInfo, setDataScienceInfo] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [selectedDataScience, setSelectedDataScience] = useState(null); // Estado para controlar a seleção
 
   // Função para buscar os dados na API FastAPI
   const fetchDataScienceInfo = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8998/api/skillgap"); // Ajuste o endpoint conforme necessário
+      const response = await axios.get("http://192.168.15.7:8998/api/skillgap"); // Ajuste o endpoint conforme necessário
       setDataScienceInfo(response.data); // Armazena os dados recebidos
     } catch (error) {
       console.error("Erro ao buscar dados de Data Science:", error);
@@ -25,6 +26,11 @@ export default function Home({ navigation }) {
   useEffect(() => {
     fetchDataScienceInfo();
   }, []);
+
+  // Função para exibir ou esconder os detalhes de um item
+  const toggleDetails = (item) => {
+    setSelectedDataScience(prevState => prevState === item ? null : item);
+  };
 
   return (
     <View style={styles.container}>
@@ -78,26 +84,35 @@ export default function Home({ navigation }) {
           <Text style={styles.menuText}>Vagas</Text>
         </TouchableOpacity>
       </ScrollView>
-      <View style={styles.dataScienceContainer}>
+
+      {/* ScrollView para os dados de Data Science */}
+      <ScrollView style={styles.dataScienceContainer}>
         <Text style={styles.dataScienceTitle}>Déficit de Habilidades por Setor</Text>
         {loading ? (
           <ActivityIndicator size="large" color="#2C3E50" />
         ) : dataScienceInfo && dataScienceInfo.data.length > 0 ? (
           dataScienceInfo.data.map((item, index) => (
             <View key={index} style={styles.dataScienceCard}>
-              <Text style={styles.departmentTitle}>{item.department}</Text>
-              <Text style={styles.departmentText}>Habilidades Necessárias:</Text>
-              <View style={styles.skillsList}>
-                {item.skill_gap.map((skill, idx) => (
-                  <Text key={idx} style={styles.skillItem}>{skill}</Text>
-                ))}
-              </View>
+              <TouchableOpacity onPress={() => toggleDetails(item)}>
+                <Text style={styles.departmentTitle}>{item.department}</Text>
+              </TouchableOpacity>
+              {/* Exibe os detalhes se o item for o selecionado */}
+              {selectedDataScience === item && (
+                <View style={styles.detailsContainer}>
+                  <Text style={styles.departmentText}>Habilidades Necessárias:</Text>
+                  <View style={styles.skillsList}>
+                    {item.skill_gap.map((skill, idx) => (
+                      <Text key={idx} style={styles.skillItem}>{skill}</Text>
+                    ))}
+                  </View>
+                </View>
+              )}
             </View>
           ))
         ) : (
           <Text style={styles.errorText}>Nenhuma informação disponível.</Text>
         )}
-      </View>
+      </ScrollView>
 
       <View style={styles.separator} />
     </View>

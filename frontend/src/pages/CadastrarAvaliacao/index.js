@@ -138,9 +138,9 @@ console.log(response)
             style={styles.picker}
             onValueChange={setIdFuncionario}
           >
-            <Picker.Item label="Selecione o funcionario" value="" />
+            <Picker.Item label="Selecione o funcionario" value="" color="#2C3E50" />
             {requesters.map((item) => (
-              <Picker.Item key={item.id} label={item.email} value={item.id} />
+              <Picker.Item key={item.id} label={item.email} value={item.id} color="#2C3E50" />
             ))}
           </Picker>
           <Text style={styles.text}>Solicitante:</Text>
@@ -149,9 +149,9 @@ console.log(response)
             style={styles.picker}
             onValueChange={setIdAvaliador}
           >
-            <Picker.Item label="Selecione o solicitante" value="" />
+            <Picker.Item label="Selecione o solicitante" value="" color="#2C3E50" />
             {requesters.map((item) => (
-              <Picker.Item key={item.id} label={item.email} value={item.id} />
+              <Picker.Item key={item.id} label={item.email} value={item.id} color="#2C3E50" />
             ))}
           </Picker>
           <TouchableOpacity style={styles.button} onPress={handleSubmit}>
