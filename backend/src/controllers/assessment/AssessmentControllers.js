@@ -50,7 +50,7 @@ import {
         const assessmentId = req.params.id;
         const assessment = req.body;
         await updateAssessment(assessmentId, assessment);
-        return res.json(assessment);
+        return res.status(200).json(assessment);
       } catch (err) {
         console.log(`ERROR: ${err.message}`);
         return res.status(500).json({

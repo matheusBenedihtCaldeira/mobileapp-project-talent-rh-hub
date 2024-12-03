@@ -5,8 +5,10 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from core.db_connection import get_connection, close_connection
 
-nltk.data.path.append('C:\\Development\\Workspace\\faculdade\\ti-sociedade\\project\\mobileapp-project-talent-rh-hub\\python-api\\venv\\share\\nltk_data')
 nltk.download('punkt')
+nltk.download('punkt_tab')
+nltk.download('wordnet')
+nltk.download('omw-1.4')
 
 class SkillGapController:
 
@@ -16,8 +18,8 @@ class SkillGapController:
         stop_words = set(stopwords.words('english'))
 
         def extract_keywords(text):
-            """ Função para tokenizar o texto e remover stopwords """
-            tokens = word_tokenize(text.lower())  # Tokenização e conversão para minúsculas
+            """ Tira todas as palavras que não nos interessam da descrição das vagas em aberto """
+            tokens = word_tokenize(text.lower())
             return set([token for token in tokens if token.isalpha() and token not in stop_words])
 
         # Extrair habilidades das descrições das vagas
@@ -27,7 +29,7 @@ class SkillGapController:
 
         # Transformar as habilidades dos funcionários em conjuntos
         funcionarios_df['skills'] = funcionarios_df['skills'].apply(
-            lambda skills: set(skills) if pd.notnull(skills) else set()
+            lambda skills: set(skills) if isinstance(skills, list) else set()
         )
 
         # Identificar gaps por departamento
@@ -39,13 +41,12 @@ class SkillGapController:
             )
             skill_gap = vagas_skills - funcionarios_skills
             results.append({"department": dept, "skill_gap": list(skill_gap)})
-
         return results
 
     @classmethod
     def get_skill_gap(cls):
         try:
-            # Supondo que você tenha uma função para pegar a conexão com o DB
+            # Extrai informações do banco de dados
             connection = get_connection()
             with connection.cursor() as conn:
                 vagas_query = """
@@ -67,7 +68,7 @@ class SkillGapController:
                 funcionarios = conn.fetchall()
                 funcionarios_df = pd.DataFrame(funcionarios, columns=["department", "skills"])
 
-                # Processar gaps
+                # Processando os dados de funcionarios por departamentos e vagas
                 resultados = cls.process_skill_gap(vagas_df, funcionarios_df)
                 return {"data": resultados}
         except Exception as e:

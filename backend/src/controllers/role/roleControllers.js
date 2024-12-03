@@ -42,6 +42,7 @@ export const register = async (req, res) => {
   const { role } = req.body;
   try {
     const roleId = await registerRole(role);
+    console.log(roleId);
     res.status(201).json({
       id: roleId,
       message: "Role registered successfully",

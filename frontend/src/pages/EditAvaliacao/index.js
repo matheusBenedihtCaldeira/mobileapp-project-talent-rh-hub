@@ -8,11 +8,27 @@ import { Picker } from "@react-native-picker/picker";
 export default function EditarAvaliacao({ navigation, route }) {
   const [funcionarios, setFuncionarios] = useState([]);
   const [avaliadores, setAvaliadors] = useState([]);
-  const [feedback, setFeedback] = useState(route.params.data.feedback);
-  const [pontuacao, setPontuacao] = useState(route.params.data.pontuacao);
-  const [idFuncionario, setIdFuncionario] = useState(route.params.data.id_funcionario);
-  const [idAvaliador, setIdAvaliador] = useState(route.params.data.id_avaliador);
+  const [feedback, setFeedback] = useState("");
+  const [pontuacao, setPontuacao] = useState("");
+  const [idFuncionario, setIdFuncionario] = useState("");
+  const [idAvaliador, setIdAvaliador] = useState("");
 
+
+  // Inicializa os dados da avaliação
+  useEffect(() => {
+    if (route?.params?.data) {
+      const { feedback, pontuacao, id_funcionario, id_avaliador } = route.params.data;
+      setFeedback(feedback || "");
+      setPontuacao(pontuacao || "");
+      setIdFuncionario(id_funcionario || "");
+      setIdAvaliador(id_avaliador || "");
+    } else {
+      Alert.alert("Erro", "Dados da avaliação não foram carregados.");
+      navigation.goBack();
+    }
+  }, [route]);
+
+  // Busca funcionários e avaliadores
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -29,7 +45,7 @@ export default function EditarAvaliacao({ navigation, route }) {
 
   const fetchFuncionarios = async () => {
     try {
-      const response = await apiHandler("/users");
+      const response = await apiHandler.get("/users");
       return response.data;
     } catch (error) {
       console.error("Erro ao buscar funcionários:", error);
@@ -39,7 +55,7 @@ export default function EditarAvaliacao({ navigation, route }) {
 
   const fetchAvaliadors = async () => {
     try {
-      const response = await apiHandler("/users");
+      const response = await apiHandler.get("/users");
       return response.data;
     } catch (error) {
       console.error("Erro ao buscar avaliadores:", error);
@@ -48,8 +64,14 @@ export default function EditarAvaliacao({ navigation, route }) {
   };
 
   const handleSubmit = async () => {
-    if (!idFuncionario || !idAvaliador) {
-      Alert.alert("Erro", "Por favor, selecione o funcionário e o avaliador.");
+    const id = route?.params?.data?.assessment_id;
+    if (!id) {
+      Alert.alert("Erro", "ID da avaliação não encontrado.");
+      return;
+    }
+
+    if (!idFuncionario || !idAvaliador || !feedback || !pontuacao) {
+      Alert.alert("Erro", "Todos os campos são obrigatórios.");
       return;
     }
 
@@ -60,12 +82,14 @@ export default function EditarAvaliacao({ navigation, route }) {
         feedback: feedback,
         pontuacao: pontuacao,
       };
-
-      await apiHandler.patch(`/assessments/update/${route.params.data.id}`, body);
-      Alert.alert("Sucesso", "Avaliação atualizada com sucesso!");
-      navigation.goBack();
+      console.log(id)
+      const response = await apiHandler.patch(`/assessment/update/${id}`, body);
+      if(response.status === 200){
+        Alert.alert("Sucesso", "Avaliação atualizada com sucesso!");
+        navigation.navigate('Assessment');
+      }
     } catch (error) {
-      console.error("Erro ao atualizar avaliação:", error);
+      console.error("Erro ao atualizar avaliação:", error.response?.data || error.message);
       Alert.alert("Erro", "Não foi possível atualizar a avaliação.");
     }
   };

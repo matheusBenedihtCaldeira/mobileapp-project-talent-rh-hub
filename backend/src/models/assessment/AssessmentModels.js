@@ -64,7 +64,7 @@ export const getAssessmentByProfileId = async (id_funcionario) => {
 //Atualizar avaliação
 
 export const updateAssessment = async (id, data) => {
-    const query = 'UPDATE tb_assessments SET id_funcionario=$1, id_avaliador=$2, data_avaliacao=$3, feedback=$4, pontuacao=$5 WHERE id = $6';
-    await db_conn.query(query, [data.id_funcionario, data.id_avaliador, data_avaliacao, data.feedback, data.pontuacao, id]);
+    const query = 'UPDATE tb_assessments SET id_funcionario=$1, id_avaliador=$2, feedback=$3, pontuacao=$4 WHERE id = $5';
+    await db_conn.query(query, [data.id_funcionario, data.id_avaliador, data.feedback, data.pontuacao, id]);
     return;
 }

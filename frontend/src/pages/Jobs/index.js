@@ -1,32 +1,35 @@
-import { useState, useEffect } from "react";
-import { apiHandler } from "../../services/axiosApi";
-import {
-  View,
-  TextInput,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  Alert,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, TextInput, Text, TouchableOpacity, ScrollView, Alert } from "react-native";
 import { styles } from "./styles";
 import Header from "../../components/Header";
-import { Picker } from "@react-native-picker/picker";
+import { apiHandler } from "../../services/axiosApi";
+import DropDownPicker from "react-native-dropdown-picker";
 
 export default function Jobs({ navigation }) {
+  // Estados para gerenciar os dados do formulário e os carregados da API
   const [requesters, setRequesters] = useState([]);
   const [departamentos, setDepartamentos] = useState([]);
   const [tituloDaVaga, setTituloDaVaga] = useState("");
   const [descricaoDaVaga, setDescricaoDaVaga] = useState("");
-  const [departamento, setDepartamento] = useState("");
-  const [requester, setRequester] = useState("");
+  
+  // Estados específicos para o DropDownPicker
+  const [requester, setRequester] = useState(null);
+  const [requesterOpen, setRequesterOpen] = useState(false);
+  const [requesterItems, setRequesterItems] = useState([]);
+
+  const [departamento, setDepartamento] = useState(null);
+  const [departamentoOpen, setDepartamentoOpen] = useState(false);
+  const [departamentoItems, setDepartamentoItems] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const requestersData = await fetchRequesters();
         const departamentosData = await fetchDepartamentos();
-        setRequesters(requestersData);
-        setDepartamentos(departamentosData);
+
+        // Preenche os estados do DropDownPicker
+        setRequesterItems(requestersData.map(item => ({ label: item.email, value: item.id })));
+        setDepartamentoItems(departamentosData.map(item => ({ label: item.name, value: item.id })));
       } catch (error) {
         Alert.alert("Erro", "Falha ao carregar dados.");
       }
@@ -63,6 +66,7 @@ export default function Jobs({ navigation }) {
         departamento_id: departamento,
         solicitante_id: requester,
       };
+
       await apiHandler.post("/vacancies/register", body);
       Alert.alert("Sucesso", "Vaga cadastrada com sucesso!");
       console.log("Dados enviados:", body);
@@ -75,13 +79,12 @@ export default function Jobs({ navigation }) {
   return (
     <View style={styles.container}>
       <Header />
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
-      >
+
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Text style={styles.title}>Detalhes da vaga</Text>
 
         <View style={styles.formContainer}>
+          {/* Campo Título */}
           <Text style={styles.text}>Título da vaga</Text>
           <TextInput
             value={tituloDaVaga}
@@ -91,6 +94,7 @@ export default function Jobs({ navigation }) {
             placeholderTextColor="#A0A0A0"
           />
 
+          {/* Campo Descrição */}
           <Text style={styles.text}>Descrição</Text>
           <TextInput
             value={descricaoDaVaga}
@@ -101,29 +105,35 @@ export default function Jobs({ navigation }) {
             multiline
           />
 
+          {/* Campo Solicitante */}
           <Text style={styles.text}>Solicitante</Text>
-          <View style={styles.pickerWrapper}>
-            <Picker selectedValue={requester} onValueChange={setRequester}>
-              <Picker.Item label="Selecione o solicitante" value="" />
-              {requesters.map((item) => (
-                <Picker.Item key={item.id} label={item.email} value={item.id} />
-              ))}
-            </Picker>
-          </View>
+          <DropDownPicker
+            open={requesterOpen}
+            value={requester}
+            items={requesterItems}
+            setOpen={setRequesterOpen}
+            setValue={setRequester}
+            setItems={setRequesterItems}
+            placeholder="Selecione o solicitante"
+            style={styles.picker}
+            dropDownContainerStyle={styles.dropDownContainer}
+          />
 
+          {/* Campo Departamento */}
           <Text style={styles.text}>Departamento</Text>
-          <View style={styles.pickerWrapper}>
-            <Picker
-              selectedValue={departamento}
-              onValueChange={setDepartamento}
-            >
-              <Picker.Item label="Selecione o departamento" value="" />
-              {departamentos.map((item) => (
-                <Picker.Item key={item.id} label={item.name} value={item.id} />
-              ))}
-            </Picker>
-          </View>
+          <DropDownPicker
+            open={departamentoOpen}
+            value={departamento}
+            items={departamentoItems}
+            setOpen={setDepartamentoOpen}
+            setValue={setDepartamento}
+            setItems={setDepartamentoItems}
+            placeholder="Selecione o departamento"
+            style={styles.picker}
+            dropDownContainerStyle={styles.dropDownContainer}
+          />
 
+          {/* Botão de Envio */}
           <TouchableOpacity style={styles.button} onPress={handleSubmit}>
             <Text style={styles.buttonText}>Criar Vaga</Text>
           </TouchableOpacity>

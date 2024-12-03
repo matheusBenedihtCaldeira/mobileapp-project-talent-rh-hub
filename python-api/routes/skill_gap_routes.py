@@ -1,12 +1,12 @@
 from fastapi import APIRouter
 from controllers.skill_gap_controller import SkillGapController
 
-api_skill_gap = APIRouter(prefix='/skill-gap')
+api_skill_gap = APIRouter(prefix='/skillgap')
 
 
 @api_skill_gap.get(
     path='/',
-    tags=['skill-gap']
+    tags=['skillgap']
 )
 async def get_skill_gap():
     try:

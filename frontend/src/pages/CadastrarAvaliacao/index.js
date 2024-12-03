@@ -46,9 +46,8 @@ export default function CadastroAvaliacao({ navigation }) {
       };
 
       const response = await apiHandler.post('/assessment/register', body)
-      if(response.status===201){
-        console.log(response);
-      }
+      console.log(response);
+      navigation.navigate('Assessment')
 
 
     } catch (err) {
@@ -112,7 +111,6 @@ console.log(response)
 
 
   return (
-
     <View style={styles.container}>
       <Header />
       <ScrollView showsVerticalScrollIndicator={false}>

@@ -59,8 +59,13 @@ export default function Vacancies({ navigation }) {
 
     // exibe e esconde os detalhes
     const showDetails = (vaga) => {
-        // Se a vaga já estiver selecionada, desmarca; caso contrário, seleciona
-        setSelectedVacancy(selectedVacancy?.id === vaga.id ? null : vaga);
+        let vagaParaExibir = '';
+        if(selectedVacancy === vaga){
+            vagaParaExibir = vaga
+        }else{
+            vagaParaExibir = vaga
+        }
+        setSelectedVacancy(vagaParaExibir);
     };
 
     return (
